@@ -1,7 +1,19 @@
 # automation-finder
 
-Finds the repeated manual work hiding in a business's everyday records, estimates how many hours it costs, and
-drafts the automation for each one, including a workflow file you can import into n8n.
+**Finds the boring, repetitive jobs in a business that a computer could do instead**, works out how many hours
+they cost each month, and drafts a ready-made automation for each one.
+
+> **In plain words:** it works like a consultant who sits in your office for three months and notes every task
+> people repeat by hand, such as typing the same details into two systems or chasing the same thing every Friday.
+> Except it does it in one minute, from records you already have, and tells you which jobs are worth automating
+> first.
+>
+> **Who it's for:** owners and managers of small businesses (5–50 staff) who feel busy but can't say where the hours
+> go.
+>
+> **What you get:** a ranked list of time-wasting tasks with the hours each costs, a plain explanation of how each
+> could be automated (and where a person must still decide), and workflow files for n8n, a popular free automation
+> tool.
 
 ![Demo: load the sample business, see the repeated work ranked by hours, change a time estimate, open one proposal](docs/screenshots/demo.gif)
 
