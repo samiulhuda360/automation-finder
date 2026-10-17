@@ -1,0 +1,190 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Acme Plumbing//Shared calendar//EN
+BEGIN:VEVENT
+UID:cal-1001@acmeplumbing.example
+DTSTART:20260601T070000
+DTEND:20260601T073000
+SUMMARY:Toolbox meeting
+ORGANIZER;CN=James Carter:mailto:james.carter@acmeplumbing.example
+ATTENDEE;CN=Tom Baker:mailto:tom.baker@acmeplumbing.example
+ATTENDEE;CN=Jack Harris:mailto:jack.harris@acmeplumbing.example
+ATTENDEE;CN=Mark Evans:mailto:mark.evans@acmeplumbing.example
+ATTENDEE;CN=Olivia Brown:mailto:olivia.brown@acmeplumbing.example
+ATTENDEE;CN=Hannah Clarke:mailto:hannah.clarke@acmeplumbing.example
+ATTENDEE;CN=Ben Walker:mailto:ben.walker@acmeplumbing.example
+ATTENDEE;CN=Lucy Turner:mailto:lucy.turner@acmeplumbing.example
+ATTENDEE;CN=Ryan Hughes:mailto:ryan.hughes@acmeplumbing.example
+RRULE:FREQ=WEEKLY;COUNT=12
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1002@acmeplumbing.example
+DTSTART:20260604T150000
+DTEND:20260604T154500
+SUMMARY:Catch-up Sarah / James
+ORGANIZER;CN=Sarah Mitchell:mailto:sarah.mitchell@acmeplumbing.example
+ATTENDEE;CN=James Carter:mailto:james.carter@acmeplumbing.example
+RRULE:FREQ=WEEKLY;COUNT=12
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1003@acmeplumbing.example
+DTSTART:20260603T133000
+DTEND:20260603T143000
+SUMMARY:Quote visit - 21 Station Rd, Ponsonby
+ORGANIZER;CN=Jack Harris:mailto:jack.harris@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1004@acmeplumbing.example
+DTSTART:20260611T150100
+DTEND:20260611T160100
+SUMMARY:Quote visit - 73 Queen St, Epsom
+ORGANIZER;CN=Jack Harris:mailto:jack.harris@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1005@acmeplumbing.example
+DTSTART:20260612T151000
+DTEND:20260612T161000
+SUMMARY:Quote visit - 138 Beach Rd, Onehunga
+ORGANIZER;CN=Hannah Clarke:mailto:hannah.clarke@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1006@acmeplumbing.example
+DTSTART:20260617T151000
+DTEND:20260617T161000
+SUMMARY:Quote visit - 28 Rata St, Avondale
+ORGANIZER;CN=Hannah Clarke:mailto:hannah.clarke@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1007@acmeplumbing.example
+DTSTART:20260618T103800
+DTEND:20260618T113800
+SUMMARY:Quote visit - 40 Church St, Mangere Bridge
+ORGANIZER;CN=Hannah Clarke:mailto:hannah.clarke@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1008@acmeplumbing.example
+DTSTART:20260625T130000
+DTEND:20260625T140000
+SUMMARY:Quote visit - 53 Church St, Howick
+ORGANIZER;CN=Olivia Brown:mailto:olivia.brown@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1009@acmeplumbing.example
+DTSTART:20260701T144100
+DTEND:20260701T154100
+SUMMARY:Quote visit - 40 Queen St, Henderson
+ORGANIZER;CN=Olivia Brown:mailto:olivia.brown@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1010@acmeplumbing.example
+DTSTART:20260702T085900
+DTEND:20260702T095900
+SUMMARY:Quote visit - 84 Rata St, Mt Eden
+ORGANIZER;CN=Lucy Turner:mailto:lucy.turner@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1011@acmeplumbing.example
+DTSTART:20260706T124200
+DTEND:20260706T134200
+SUMMARY:Quote visit - 99 Rata St, Ponsonby
+ORGANIZER;CN=Ryan Hughes:mailto:ryan.hughes@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1012@acmeplumbing.example
+DTSTART:20260707T131100
+DTEND:20260707T141100
+SUMMARY:Quote visit - 28 Hill Ave, Mt Eden
+ORGANIZER;CN=Olivia Brown:mailto:olivia.brown@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1013@acmeplumbing.example
+DTSTART:20260709T091100
+DTEND:20260709T101100
+SUMMARY:Quote visit - 11 Beach Rd, Onehunga
+ORGANIZER;CN=Lucy Turner:mailto:lucy.turner@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1014@acmeplumbing.example
+DTSTART:20260713T151000
+DTEND:20260713T161000
+SUMMARY:Quote visit - 54 Hill Ave, Ponsonby
+ORGANIZER;CN=Lucy Turner:mailto:lucy.turner@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1015@acmeplumbing.example
+DTSTART:20260715T133200
+DTEND:20260715T143200
+SUMMARY:Quote visit - 10 Station Rd, Parnell
+ORGANIZER;CN=Jack Harris:mailto:jack.harris@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1016@acmeplumbing.example
+DTSTART:20260721T093600
+DTEND:20260721T103600
+SUMMARY:Quote visit - 3 Church St, Epsom
+ORGANIZER;CN=Lucy Turner:mailto:lucy.turner@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1017@acmeplumbing.example
+DTSTART:20260722T083400
+DTEND:20260722T093400
+SUMMARY:Quote visit - 123 Queen St, Avondale
+ORGANIZER;CN=Lucy Turner:mailto:lucy.turner@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1018@acmeplumbing.example
+DTSTART:20260723T112400
+DTEND:20260723T122400
+SUMMARY:Quote visit - 63 Hill Ave, Kingsland
+ORGANIZER;CN=Olivia Brown:mailto:olivia.brown@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1019@acmeplumbing.example
+DTSTART:20260803T143000
+DTEND:20260803T153000
+SUMMARY:Quote visit - 6 Beach Rd, Takapuna
+ORGANIZER;CN=Mark Evans:mailto:mark.evans@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1020@acmeplumbing.example
+DTSTART:20260805T092200
+DTEND:20260805T102200
+SUMMARY:Quote visit - 64 Rata St, Northcote
+ORGANIZER;CN=Ryan Hughes:mailto:ryan.hughes@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1021@acmeplumbing.example
+DTSTART:20260812T102400
+DTEND:20260812T112400
+SUMMARY:Quote visit - 135 Rata St, Avondale
+ORGANIZER;CN=Olivia Brown:mailto:olivia.brown@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1022@acmeplumbing.example
+DTSTART:20260813T131200
+DTEND:20260813T141200
+SUMMARY:Quote visit - 2 Hill Ave, Takapuna
+ORGANIZER;CN=Hannah Clarke:mailto:hannah.clarke@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1023@acmeplumbing.example
+DTSTART:20260601T090000
+DTEND:20260601T110000
+SUMMARY:Monthly KPI report
+ORGANIZER;CN=Sarah Mitchell:mailto:sarah.mitchell@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1024@acmeplumbing.example
+DTSTART:20260701T090000
+DTEND:20260701T110000
+SUMMARY:Monthly KPI report
+ORGANIZER;CN=Sarah Mitchell:mailto:sarah.mitchell@acmeplumbing.example
+END:VEVENT
+BEGIN:VEVENT
+UID:cal-1025@acmeplumbing.example
+DTSTART:20260803T090000
+DTEND:20260803T110000
+SUMMARY:Monthly KPI report
+ORGANIZER;CN=Sarah Mitchell:mailto:sarah.mitchell@acmeplumbing.example
+END:VEVENT
+END:VCALENDAR

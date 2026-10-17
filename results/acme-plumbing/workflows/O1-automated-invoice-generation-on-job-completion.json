@@ -1,0 +1,324 @@
+{
+  "id": "00104a18386b535e",
+  "name": "O1 - Automated Invoice Generation on Job Completion",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "d65577f9-0a02-578c-9db1-a9c8b35d470e",
+      "name": "Try with sample data",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n \"subject\": \"hannah: start job: Outdoor tap install, Howick\",\n \"text\": \"hannah: start job: Outdoor tap install, Howick\",\n \"from\": \"sample@example.com\",\n \"reference\": \"REF-1001\",\n \"sample\": true\n}",
+        "options": {}
+      },
+      "id": "cf182a8d-c07e-5716-9d0a-295c9468c622",
+      "name": "Sample record",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "o1-app-event",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "62f57168-63a5-58d5-87cd-6c7fbafb48ea",
+      "name": "Incoming event (webhook)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -200
+      ],
+      "webhookId": "1005696f-e6bd-5075-af0d-2ef8aca057c1"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Keep only the items that belong to this pattern (words taken from the examples found in the data).\nconst PATTERN = /complete|create|customer|emma|hannah|howick|install|invoice/i;\nreturn $input.all().filter((item) => {\n  const j = item.json;\n  const text = [j.subject, j.title, j.text, j.action, j.description].filter(Boolean).join(' ');\n  return text === '' || PATTERN.test(text);\n});\n"
+      },
+      "id": "c20af74b-05ba-5b92-98d1-82914c3c5aeb",
+      "name": "Match this pattern",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ ($env.AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta/openai') + '/chat/completions' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.AI_API_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: $env.AI_MODEL || 'gemini-flash-lite-latest', temperature: 0, response_format: { type: 'json_object' }, messages: [ { role: 'system', content: \"You help automate this task: Automated Invoice Generation on Job Completion. Steps: Detect when a job status changes to complete in the jobs system. | Extract job details, customer information, and line items from the completed job. | Draft a new invoice in the accounts system using the extracted details. | Send the drafted invoice to Emma for review and approval.. From the item below, return JSON with the fields needed and a confidence from 0 to 1.\" }, { role: 'user', content: JSON.stringify($json) } ] }) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "63fb5305-ed7f-5f4c-98e5-67eb30402d79",
+      "name": "AI: read and extract",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        -100
+      ],
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "// If the model call failed or answered badly, pass the item on for a person to handle.\nlet fields = {};\ntry { fields = JSON.parse($json.choices[0].message.content); } catch (e) { fields = {}; }\nconst original = $('Match this pattern').item.json;\nconst confidence = Number(fields.confidence || 0);\nconst needs_person = confidence < 0.8;\nreturn { json: { ...original, extracted: fields, confidence, needs_person } };\n"
+      },
+      "id": "e3812cef-3a35-5832-ad8d-5f4d50f4755d",
+      "name": "Use AI answer or fall back",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.APPROVAL_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: 'Please approve: ' + ($json.subject || $json.text || 'item') + ' (reply via ' + $execution.resumeUrl + ')' }) }}",
+        "options": {}
+      },
+      "id": "f13bb710-c140-5dc9-9e66-84cf069917e0",
+      "name": "Ask for approval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        -100
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "httpMethod": "POST",
+        "options": {}
+      },
+      "id": "59c50225-bb59-53e7-8ff0-72dc2571d375",
+      "name": "Wait for the decision",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        -100
+      ],
+      "webhookId": "afead8d7-7887-55da-9882-a19c3ff2c3ad"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "6e2104c5-aafc-55c1-a42b-7181703e14a0",
+              "leftValue": "={{ $json.body ? $json.body.approved : false }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "41584452-6cc0-5373-93de-1fe12219d5df",
+      "name": "Approved?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.ACCOUNTS_API_URL }}/records",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "324ca6f3-7293-56aa-894f-64ab417a8a76",
+      "name": "Write to accounts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Automated Invoice Generation on Job Completion\nToday: First one of 8 people (Ben, Ryan and others) does 'complete job in jobs'; then Emma does 'create invoice in accounts'. This happens about 292 times a month.\nEstimated time saved: 17.49 hours a month (an estimate; see the report).\nRisk: medium - Incorrect invoice amounts or details could lead to billing errors and customer dissatisfaction.\n\nBefore switching on: set the trigger's credentials, ACCOUNTS_API_URL, APPROVAL_WEBHOOK_URL and AI_API_KEY in the n8n environment.",
+        "height": 300,
+        "width": 620,
+        "color": 4
+      },
+      "id": "0cdf620c-9631-55e7-a80e-e1dd4de868f0",
+      "name": "About this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Try with sample data": {
+      "main": [
+        [
+          {
+            "node": "Sample record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Incoming event (webhook)": {
+      "main": [
+        [
+          {
+            "node": "Match this pattern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sample record": {
+      "main": [
+        [
+          {
+            "node": "Match this pattern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Match this pattern": {
+      "main": [
+        [
+          {
+            "node": "AI: read and extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI: read and extract": {
+      "main": [
+        [
+          {
+            "node": "Use AI answer or fall back",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Use AI answer or fall back": {
+      "main": [
+        [
+          {
+            "node": "Ask for approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask for approval": {
+      "main": [
+        [
+          {
+            "node": "Wait for the decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for the decision": {
+      "main": [
+        [
+          {
+            "node": "Approved?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approved?": {
+      "main": [
+        [
+          {
+            "node": "Write to accounts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "description": "First one of 8 people (Ben, Ryan and others) does 'complete job in jobs'; then Emma does 'create invoice in accounts'. This happens about 292 times a month."
+  },
+  "tags": []
+}

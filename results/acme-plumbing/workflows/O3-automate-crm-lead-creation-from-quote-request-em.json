@@ -1,0 +1,221 @@
+{
+  "id": "58f2a7c5eef35c53",
+  "name": "O3 - Automate CRM Lead Creation from Quote Request Emails",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "461cf128-bfb7-5b9a-b4c4-ca5202b63fe3",
+      "name": "Try with sample data",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n \"subject\": \"New quote request: Shower mixer replacement - Mangere Bridge\",\n \"text\": \"New quote request: Shower mixer replacement - Mangere Bridge\",\n \"from\": \"sample@example.com\",\n \"reference\": \"REF-1001\",\n \"sample\": true\n}",
+        "options": {}
+      },
+      "id": "e8321384-2567-575e-8d1c-f6d474175310",
+      "name": "Sample record",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mailbox": "INBOX",
+        "postProcessAction": "nothing",
+        "options": {}
+      },
+      "id": "ce290ee4-ecd7-50d7-bb16-2261991a1133",
+      "name": "New email (IMAP)",
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Keep only the items that belong to this pattern (words taken from the examples found in the data).\nconst PATTERN = /bridge|create|lead|mangere|mixer|quote|replacement|request/i;\nreturn $input.all().filter((item) => {\n  const j = item.json;\n  const text = [j.subject, j.title, j.text, j.action, j.description].filter(Boolean).join(' ');\n  return text === '' || PATTERN.test(text);\n});\n"
+      },
+      "id": "b8edc07e-45ce-5ebf-97d5-1869e0a92a65",
+      "name": "Match this pattern",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ ($env.AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta/openai') + '/chat/completions' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.AI_API_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: $env.AI_MODEL || 'gemini-flash-lite-latest', temperature: 0, response_format: { type: 'json_object' }, messages: [ { role: 'system', content: \"You help automate this task: Automate CRM Lead Creation from Quote Request Emails. Steps: Receive the incoming quote request email. | Extract the customer details, job description, and location using AI. | Check if a lead already exists in the CRM system. | Create a new lead in the CRM with the extracted information.. From the item below, return JSON with the fields needed and a confidence from 0 to 1.\" }, { role: 'user', content: JSON.stringify($json) } ] }) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "4abbb1d8-46be-56cf-8948-b7d67735da32",
+      "name": "AI: read and extract",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        -100
+      ],
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "// If the model call failed or answered badly, pass the item on for a person to handle.\nlet fields = {};\ntry { fields = JSON.parse($json.choices[0].message.content); } catch (e) { fields = {}; }\nconst original = $('Match this pattern').item.json;\nconst confidence = Number(fields.confidence || 0);\nconst needs_person = confidence < 0.8;\nreturn { json: { ...original, extracted: fields, confidence, needs_person } };\n"
+      },
+      "id": "864c2ddf-6a88-5af4-ba8c-29c68d45b88a",
+      "name": "Use AI answer or fall back",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.CRM_API_URL }}/records",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "b9ab12d5-a377-59f2-8353-c6cc4b654ba2",
+      "name": "Write to crm",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Automate CRM Lead Creation from Quote Request Emails\nToday: Claire receives an email like \u201cNew quote request: Shower mixer replacement - Mangere Bridge\u201d and then types it into crm (create lead) by hand, about 35 times a month.\nEstimated time saved: 2.34 hours a month (an estimate; see the report).\nRisk: low - If the automation makes a mistake, an incorrect lead is created in the CRM which can be easily edited or deleted by Claire.\n\nBefore switching on: set the trigger's credentials, CRM_API_URL and AI_API_KEY in the n8n environment.",
+        "height": 300,
+        "width": 620,
+        "color": 4
+      },
+      "id": "b32e7171-beaa-53c5-9c5e-9dfd805ccf4e",
+      "name": "About this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Try with sample data": {
+      "main": [
+        [
+          {
+            "node": "Sample record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New email (IMAP)": {
+      "main": [
+        [
+          {
+            "node": "Match this pattern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sample record": {
+      "main": [
+        [
+          {
+            "node": "Match this pattern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Match this pattern": {
+      "main": [
+        [
+          {
+            "node": "AI: read and extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI: read and extract": {
+      "main": [
+        [
+          {
+            "node": "Use AI answer or fall back",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Use AI answer or fall back": {
+      "main": [
+        [
+          {
+            "node": "Write to crm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "description": "Claire receives an email like \u201cNew quote request: Shower mixer replacement - Mangere Bridge\u201d and then types it into crm (create lead) by hand, about 35 times a month."
+  },
+  "tags": []
+}

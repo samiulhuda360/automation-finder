@@ -1,0 +1,24 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Monthly KPI Report Automation",
+  "trigger_type": "schedule",
+  "trigger": "Triggered on the first working day of each month at 09:00.",
+  "steps": [
+   "Export the latest job report from the jobs system",
+   "Calculate the key performance indicators from the exported data",
+   "Update the monthly KPI spreadsheet with the new figures",
+   "Send the final KPI report via email to management"
+  ],
+  "ai_help": "AI calculates key metrics and summarizes the job report data before updating the spreadsheet.",
+  "human_approval": "Review and approve the updated KPI spreadsheet and email before it is sent to management.",
+  "needs_approval": true,
+  "risk": "low",
+  "risk_reason": "Mistakes in internal KPI reporting are easily corrected and do not directly impact customers or finances.",
+  "systems": [
+   "jobs",
+   "spreadsheet",
+   "email"
+  ]
+ }
+}

@@ -1,0 +1,1035 @@
+{
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "hard": true,
+ "summary": {
+  "tfidf": {
+   "recall_mean": 0.825,
+   "precision_mean": 0.613,
+   "top5_precision_mean": 1.0,
+   "candidates_mean": 10.8,
+   "event_recall_mean": 0.691,
+   "p4_coverage_mean": 0.0,
+   "distractor_hits": 0,
+   "hours_mape_mean": 0.269,
+   "found_in_seeds": {
+    "P1": 5,
+    "P2": 5,
+    "P3": 3,
+    "P4": 0,
+    "P5": 5,
+    "P6": 5,
+    "P7": 5,
+    "P8": 5
+   }
+  },
+  "gemini": {
+   "recall_mean": 1.0,
+   "precision_mean": 0.734,
+   "top5_precision_mean": 1.0,
+   "candidates_mean": 11,
+   "event_recall_mean": 0.897,
+   "p4_coverage_mean": 0.996,
+   "distractor_hits": 0,
+   "hours_mape_mean": 0.229,
+   "found_in_seeds": {
+    "P1": 5,
+    "P2": 5,
+    "P3": 5,
+    "P4": 5,
+    "P5": 5,
+    "P6": 5,
+    "P7": 5,
+    "P8": 5
+   }
+  },
+  "keyword_baseline": {
+   "recall_mean": 0.125,
+   "precision_mean": 0.1,
+   "top5_precision_mean": 0.2,
+   "candidates_mean": 10,
+   "event_recall_mean": 0.086,
+   "p4_coverage_mean": 0.0,
+   "distractor_hits": 0,
+   "hours_mape_mean": 1.037,
+   "found_in_seeds": {
+    "P1": 0,
+    "P2": 0,
+    "P3": 0,
+    "P4": 0,
+    "P5": 0,
+    "P6": 0,
+    "P7": 0,
+    "P8": 5
+   }
+  },
+  "repeat_baseline": {
+   "recall_mean": 0.45,
+   "precision_mean": 0.36,
+   "top5_precision_mean": 0.4,
+   "candidates_mean": 10,
+   "event_recall_mean": 0.261,
+   "p4_coverage_mean": 0.0,
+   "distractor_hits": 6,
+   "hours_mape_mean": 0.26,
+   "found_in_seeds": {
+    "P1": 5,
+    "P2": 0,
+    "P3": 3,
+    "P4": 0,
+    "P5": 0,
+    "P6": 0,
+    "P7": 5,
+    "P8": 5
+   }
+  }
+ },
+ "per_seed": [
+  {
+   "seed": 1,
+   "truth": {
+    "P1": 1.75,
+    "P2": 1.73,
+    "P3": 1.0,
+    "P4": 0.93,
+    "P5": 2.06,
+    "P6": 1.77,
+    "P7": 7.8,
+    "P8": 29.11
+   },
+   "tfidf": {
+    "recall": 0.75,
+    "precision": 0.545,
+    "top5_precision": 1.0,
+    "candidates": 11,
+    "found": {
+     "P6": "O5",
+     "P5": "O3",
+     "P7": "O2",
+     "P8": "O1",
+     "P2": "O4",
+     "P1": "O6"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P6": [
+      1.54,
+      1.77
+     ],
+     "P5": [
+      2.2,
+      2.06
+     ],
+     "P7": [
+      10.17,
+      7.8
+     ],
+     "P8": [
+      28.79,
+      29.11
+     ],
+     "P2": [
+      0.93,
+      1.73
+     ],
+     "P1": [
+      0.66,
+      1.75
+     ]
+    },
+    "coverage": {
+     "P8": 0.948,
+     "P7": 1.0,
+     "P5": 1.0,
+     "P2": 0.696,
+     "P6": 1.0,
+     "P1": 0.448
+    },
+    "event_recall": 0.636,
+    "hours_mape": 0.266
+   },
+   "gemini": {
+    "recall": 1.0,
+    "precision": 0.8,
+    "top5_precision": 1.0,
+    "candidates": 10,
+    "found": {
+     "P6": "O7",
+     "P4": "O5",
+     "P2": "O4",
+     "P5": "O3",
+     "P7": "O2",
+     "P8": "O1",
+     "P3": "O6",
+     "P1": "O8"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P6": [
+      1.54,
+      1.77
+     ],
+     "P4": [
+      1.15,
+      0.93
+     ],
+     "P2": [
+      1.34,
+      1.73
+     ],
+     "P5": [
+      2.2,
+      2.06
+     ],
+     "P7": [
+      10.17,
+      7.8
+     ],
+     "P8": [
+      28.79,
+      29.11
+     ],
+     "P3": [
+      0.93,
+      1.0
+     ],
+     "P1": [
+      0.66,
+      1.75
+     ]
+    },
+    "coverage": {
+     "P8": 0.948,
+     "P7": 1.0,
+     "P5": 1.0,
+     "P2": 1.0,
+     "P4": 1.0,
+     "P3": 0.697,
+     "P6": 1.0,
+     "P1": 0.448
+    },
+    "event_recall": 0.887,
+    "hours_mape": 0.208
+   },
+   "keyword_baseline": {
+    "recall": 0.125,
+    "precision": 0.1,
+    "top5_precision": 0.2,
+    "candidates": 10,
+    "found": {
+     "P8": "job"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P8": [
+      59.06,
+      29.11
+     ]
+    },
+    "coverage": {
+     "P8": 0.684
+    },
+    "event_recall": 0.086,
+    "hours_mape": 1.029
+   },
+   "repeat_baseline": {
+    "recall": 0.375,
+    "precision": 0.3,
+    "top5_precision": 0.4,
+    "candidates": 10,
+    "found": {
+     "P7": "phone:reminder call",
+     "P1": "accounts:enter supplier bill",
+     "P8": "jobs:complete job"
+    },
+    "distractor_hits": 1,
+    "hours": {
+     "P7": [
+      12.71,
+      7.8
+     ],
+     "P1": [
+      1.43,
+      1.75
+     ],
+     "P8": [
+      25.96,
+      29.11
+     ]
+    },
+    "coverage": {
+     "P8": 0.342,
+     "P7": 1.0,
+     "P1": 0.5
+    },
+    "event_recall": 0.23,
+    "hours_mape": 0.307
+   }
+  },
+  {
+   "seed": 2,
+   "truth": {
+    "P1": 1.79,
+    "P2": 2.25,
+    "P3": 1.01,
+    "P4": 0.79,
+    "P5": 2.0,
+    "P6": 1.41,
+    "P7": 7.81,
+    "P8": 29.47
+   },
+   "tfidf": {
+    "recall": 0.75,
+    "precision": 0.6,
+    "top5_precision": 1.0,
+    "candidates": 10,
+    "found": {
+     "P6": "O5",
+     "P2": "O4",
+     "P5": "O3",
+     "P7": "O2",
+     "P8": "O1",
+     "P1": "O6"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P6": [
+      1.19,
+      1.41
+     ],
+     "P2": [
+      1.74,
+      2.25
+     ],
+     "P5": [
+      2.2,
+      2.0
+     ],
+     "P7": [
+      10.24,
+      7.81
+     ],
+     "P8": [
+      29.33,
+      29.47
+     ],
+     "P1": [
+      0.53,
+      1.79
+     ]
+    },
+    "coverage": {
+     "P8": 0.952,
+     "P7": 1.0,
+     "P5": 1.0,
+     "P2": 1.0,
+     "P6": 1.0,
+     "P1": 0.353
+    },
+    "event_recall": 0.663,
+    "hours_mape": 0.25
+   },
+   "gemini": {
+    "recall": 1.0,
+    "precision": 0.727,
+    "top5_precision": 1.0,
+    "candidates": 11,
+    "found": {
+     "P6": "O7",
+     "P4": "O5",
+     "P2": "O4",
+     "P5": "O3",
+     "P7": "O2",
+     "P8": "O1",
+     "P3": "O6",
+     "P1": "O8"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P6": [
+      1.19,
+      1.41
+     ],
+     "P4": [
+      1.28,
+      0.79
+     ],
+     "P2": [
+      1.74,
+      2.25
+     ],
+     "P5": [
+      2.2,
+      2.0
+     ],
+     "P7": [
+      10.24,
+      7.81
+     ],
+     "P8": [
+      29.33,
+      29.47
+     ],
+     "P3": [
+      0.93,
+      1.01
+     ],
+     "P1": [
+      0.53,
+      1.79
+     ]
+    },
+    "coverage": {
+     "P8": 0.952,
+     "P7": 1.0,
+     "P5": 1.0,
+     "P2": 1.0,
+     "P4": 1.0,
+     "P3": 0.785,
+     "P6": 1.0,
+     "P1": 0.353
+    },
+    "event_recall": 0.886,
+    "hours_mape": 0.275
+   },
+   "keyword_baseline": {
+    "recall": 0.125,
+    "precision": 0.1,
+    "top5_precision": 0.2,
+    "candidates": 10,
+    "found": {
+     "P8": "job"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P8": [
+      59.72,
+      29.47
+     ]
+    },
+    "coverage": {
+     "P8": 0.683
+    },
+    "event_recall": 0.085,
+    "hours_mape": 1.026
+   },
+   "repeat_baseline": {
+    "recall": 0.375,
+    "precision": 0.3,
+    "top5_precision": 0.4,
+    "candidates": 10,
+    "found": {
+     "P7": "phone:reminder call",
+     "P1": "accounts:enter supplier bill",
+     "P8": "jobs:complete job"
+    },
+    "distractor_hits": 2,
+    "hours": {
+     "P7": [
+      12.8,
+      7.81
+     ],
+     "P1": [
+      1.52,
+      1.79
+     ],
+     "P8": [
+      26.29,
+      29.47
+     ]
+    },
+    "coverage": {
+     "P8": 0.341,
+     "P7": 1.0,
+     "P1": 0.5
+    },
+    "event_recall": 0.23,
+    "hours_mape": 0.299
+   }
+  },
+  {
+   "seed": 3,
+   "truth": {
+    "P1": 1.73,
+    "P2": 2.22,
+    "P3": 1.22,
+    "P4": 1.1,
+    "P5": 2.2,
+    "P6": 1.72,
+    "P7": 7.67,
+    "P8": 29.29
+   },
+   "tfidf": {
+    "recall": 0.875,
+    "precision": 0.583,
+    "top5_precision": 1.0,
+    "candidates": 12,
+    "found": {
+     "P6": "O6",
+     "P2": "O4",
+     "P5": "O3",
+     "P7": "O2",
+     "P8": "O1",
+     "P1": "O5",
+     "P3": "O7"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P6": [
+      1.44,
+      1.72
+     ],
+     "P2": [
+      1.74,
+      2.22
+     ],
+     "P5": [
+      2.2,
+      2.2
+     ],
+     "P7": [
+      10.19,
+      7.67
+     ],
+     "P8": [
+      29.11,
+      29.29
+     ],
+     "P1": [
+      0.78,
+      1.73
+     ],
+     "P3": [
+      0.45,
+      1.22
+     ]
+    },
+    "coverage": {
+     "P8": 0.956,
+     "P7": 1.0,
+     "P5": 1.0,
+     "P2": 1.0,
+     "P1": 0.542,
+     "P6": 1.0,
+     "P3": 0.316
+    },
+    "event_recall": 0.727,
+    "hours_mape": 0.271
+   },
+   "gemini": {
+    "recall": 1.0,
+    "precision": 0.615,
+    "top5_precision": 1.0,
+    "candidates": 13,
+    "found": {
+     "P6": "O8",
+     "P4": "O5",
+     "P2": "O4",
+     "P5": "O3",
+     "P7": "O2",
+     "P8": "O1",
+     "P3": "O6",
+     "P1": "O7"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P6": [
+      1.44,
+      1.72
+     ],
+     "P4": [
+      1.29,
+      1.1
+     ],
+     "P2": [
+      1.72,
+      2.22
+     ],
+     "P5": [
+      2.2,
+      2.2
+     ],
+     "P7": [
+      10.19,
+      7.67
+     ],
+     "P8": [
+      29.11,
+      29.29
+     ],
+     "P3": [
+      1.04,
+      1.22
+     ],
+     "P1": [
+      0.78,
+      1.73
+     ]
+    },
+    "coverage": {
+     "P8": 0.956,
+     "P7": 1.0,
+     "P5": 1.0,
+     "P2": 1.0,
+     "P4": 1.0,
+     "P3": 0.737,
+     "P1": 0.542,
+     "P6": 1.0
+    },
+    "event_recall": 0.904,
+    "hours_mape": 0.199
+   },
+   "keyword_baseline": {
+    "recall": 0.125,
+    "precision": 0.1,
+    "top5_precision": 0.2,
+    "candidates": 10,
+    "found": {
+     "P8": "job"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P8": [
+      58.88,
+      29.29
+     ]
+    },
+    "coverage": {
+     "P8": 0.681
+    },
+    "event_recall": 0.085,
+    "hours_mape": 1.01
+   },
+   "repeat_baseline": {
+    "recall": 0.5,
+    "precision": 0.4,
+    "top5_precision": 0.4,
+    "candidates": 10,
+    "found": {
+     "P7": "phone:reminder call",
+     "P1": "accounts:enter supplier bill",
+     "P3": "crm:create lead",
+     "P8": "jobs:complete job"
+    },
+    "distractor_hits": 1,
+    "hours": {
+     "P7": [
+      12.74,
+      7.67
+     ],
+     "P1": [
+      1.43,
+      1.73
+     ],
+     "P3": [
+      1.19,
+      1.22
+     ],
+     "P8": [
+      25.93,
+      29.29
+     ]
+    },
+    "coverage": {
+     "P8": 0.341,
+     "P7": 1.0,
+     "P1": 0.5,
+     "P3": 0.421
+    },
+    "event_recall": 0.283,
+    "hours_mape": 0.243
+   }
+  },
+  {
+   "seed": 4,
+   "truth": {
+    "P1": 1.95,
+    "P2": 2.07,
+    "P3": 1.22,
+    "P4": 0.88,
+    "P5": 2.42,
+    "P6": 1.42,
+    "P7": 7.46,
+    "P8": 29.73
+   },
+   "tfidf": {
+    "recall": 0.875,
+    "precision": 0.636,
+    "top5_precision": 1.0,
+    "candidates": 11,
+    "found": {
+     "P6": "O7",
+     "P5": "O3",
+     "P7": "O2",
+     "P8": "O1",
+     "P2": "O4",
+     "P1": "O5",
+     "P3": "O6"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P6": [
+      1.16,
+      1.42
+     ],
+     "P5": [
+      2.2,
+      2.42
+     ],
+     "P7": [
+      9.74,
+      7.46
+     ],
+     "P8": [
+      29.51,
+      29.73
+     ],
+     "P2": [
+      1.12,
+      2.07
+     ],
+     "P1": [
+      1.07,
+      1.95
+     ],
+     "P3": [
+      0.75,
+      1.22
+     ]
+    },
+    "coverage": {
+     "P8": 0.939,
+     "P7": 1.0,
+     "P5": 1.0,
+     "P2": 0.712,
+     "P1": 0.645,
+     "P3": 0.485,
+     "P6": 1.0
+    },
+    "event_recall": 0.723,
+    "hours_mape": 0.269
+   },
+   "gemini": {
+    "recall": 1.0,
+    "precision": 0.727,
+    "top5_precision": 1.0,
+    "candidates": 11,
+    "found": {
+     "P6": "O8",
+     "P4": "O5",
+     "P2": "O4",
+     "P5": "O3",
+     "P7": "O2",
+     "P8": "O1",
+     "P3": "O7",
+     "P1": "O6"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P6": [
+      1.16,
+      1.42
+     ],
+     "P4": [
+      1.08,
+      0.88
+     ],
+     "P2": [
+      1.57,
+      2.07
+     ],
+     "P5": [
+      2.2,
+      2.42
+     ],
+     "P7": [
+      9.74,
+      7.46
+     ],
+     "P8": [
+      29.51,
+      29.73
+     ],
+     "P3": [
+      1.02,
+      1.22
+     ],
+     "P1": [
+      1.07,
+      1.95
+     ]
+    },
+    "coverage": {
+     "P8": 0.939,
+     "P7": 1.0,
+     "P5": 1.0,
+     "P2": 1.0,
+     "P4": 1.0,
+     "P1": 0.645,
+     "P3": 0.66,
+     "P6": 1.0
+    },
+    "event_recall": 0.905,
+    "hours_mape": 0.209
+   },
+   "keyword_baseline": {
+    "recall": 0.125,
+    "precision": 0.1,
+    "top5_precision": 0.2,
+    "candidates": 10,
+    "found": {
+     "P8": "job"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P8": [
+      61.24,
+      29.73
+     ]
+    },
+    "coverage": {
+     "P8": 0.687
+    },
+    "event_recall": 0.086,
+    "hours_mape": 1.06
+   },
+   "repeat_baseline": {
+    "recall": 0.5,
+    "precision": 0.4,
+    "top5_precision": 0.4,
+    "candidates": 10,
+    "found": {
+     "P7": "phone:reminder call",
+     "P1": "accounts:enter supplier bill",
+     "P3": "crm:create lead",
+     "P8": "jobs:complete job"
+    },
+    "distractor_hits": 1,
+    "hours": {
+     "P7": [
+      12.18,
+      7.46
+     ],
+     "P1": [
+      1.64,
+      1.95
+     ],
+     "P3": [
+      1.19,
+      1.22
+     ],
+     "P8": [
+      26.98,
+      29.73
+     ]
+    },
+    "coverage": {
+     "P8": 0.343,
+     "P7": 1.0,
+     "P1": 0.5,
+     "P3": 0.388
+    },
+    "event_recall": 0.279,
+    "hours_mape": 0.227
+   }
+  },
+  {
+   "seed": 5,
+   "truth": {
+    "P1": 1.55,
+    "P2": 1.76,
+    "P3": 1.13,
+    "P4": 0.7,
+    "P5": 2.07,
+    "P6": 1.48,
+    "P7": 7.62,
+    "P8": 29.18
+   },
+   "tfidf": {
+    "recall": 0.875,
+    "precision": 0.7,
+    "top5_precision": 1.0,
+    "candidates": 10,
+    "found": {
+     "P6": "O6",
+     "P5": "O3",
+     "P7": "O2",
+     "P8": "O1",
+     "P2": "O4",
+     "P1": "O5",
+     "P3": "O7"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P6": [
+      1.25,
+      1.48
+     ],
+     "P5": [
+      2.2,
+      2.07
+     ],
+     "P7": [
+      9.98,
+      7.62
+     ],
+     "P8": [
+      29.01,
+      29.18
+     ],
+     "P2": [
+      1.1,
+      1.76
+     ],
+     "P1": [
+      0.83,
+      1.55
+     ],
+     "P3": [
+      0.39,
+      1.13
+     ]
+    },
+    "coverage": {
+     "P8": 0.941,
+     "P7": 1.0,
+     "P5": 1.0,
+     "P2": 0.807,
+     "P1": 0.616,
+     "P6": 1.0,
+     "P3": 0.283
+    },
+    "event_recall": 0.706,
+    "hours_mape": 0.29
+   },
+   "gemini": {
+    "recall": 1.0,
+    "precision": 0.8,
+    "top5_precision": 1.0,
+    "candidates": 10,
+    "found": {
+     "P6": "O8",
+     "P2": "O4",
+     "P5": "O3",
+     "P7": "O2",
+     "P4": "O5",
+     "P8": "O1",
+     "P3": "O6",
+     "P1": "O7"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P6": [
+      1.25,
+      1.48
+     ],
+     "P2": [
+      1.36,
+      1.76
+     ],
+     "P5": [
+      2.2,
+      2.07
+     ],
+     "P7": [
+      9.98,
+      7.62
+     ],
+     "P4": [
+      1.14,
+      0.7
+     ],
+     "P8": [
+      29.01,
+      29.18
+     ],
+     "P3": [
+      0.93,
+      1.13
+     ],
+     "P1": [
+      0.83,
+      1.55
+     ]
+    },
+    "coverage": {
+     "P8": 0.941,
+     "P7": 1.0,
+     "P5": 1.0,
+     "P2": 1.0,
+     "P4": 0.98,
+     "P3": 0.674,
+     "P1": 0.616,
+     "P6": 1.0
+    },
+    "event_recall": 0.901,
+    "hours_mape": 0.254
+   },
+   "keyword_baseline": {
+    "recall": 0.125,
+    "precision": 0.1,
+    "top5_precision": 0.2,
+    "candidates": 10,
+    "found": {
+     "P8": "job"
+    },
+    "distractor_hits": 0,
+    "hours": {
+     "P8": [
+      60.07,
+      29.18
+     ]
+    },
+    "coverage": {
+     "P8": 0.686
+    },
+    "event_recall": 0.086,
+    "hours_mape": 1.059
+   },
+   "repeat_baseline": {
+    "recall": 0.5,
+    "precision": 0.4,
+    "top5_precision": 0.4,
+    "candidates": 10,
+    "found": {
+     "P7": "phone:reminder call",
+     "P1": "accounts:enter supplier bill",
+     "P3": "crm:create lead",
+     "P8": "jobs:complete job"
+    },
+    "distractor_hits": 1,
+    "hours": {
+     "P7": [
+      12.47,
+      7.62
+     ],
+     "P1": [
+      1.28,
+      1.55
+     ],
+     "P3": [
+      1.13,
+      1.13
+     ],
+     "P8": [
+      26.44,
+      29.18
+     ]
+    },
+    "coverage": {
+     "P8": 0.343,
+     "P7": 1.0,
+     "P1": 0.5,
+     "P3": 0.413
+    },
+    "event_recall": 0.282,
+    "hours_mape": 0.226
+   }
+  }
+ ]
+}

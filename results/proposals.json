@@ -1,0 +1,1294 @@
+{
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "summary": {
+  "rules": {
+   "score": 0.975,
+   "items": 40,
+   "trigger": 1.0,
+   "systems": 0.938,
+   "approval": 1.0,
+   "risk": 1.0,
+   "key_steps": 0.938
+  },
+  "model": {
+   "score": 0.915,
+   "items": 40,
+   "trigger": 1.0,
+   "systems": 0.938,
+   "approval": 0.75,
+   "risk": 0.938,
+   "key_steps": 0.95
+  },
+  "model_guarded": {
+   "score": 0.927,
+   "items": 40,
+   "trigger": 1.0,
+   "systems": 0.938,
+   "approval": 0.75,
+   "risk": 1.0,
+   "key_steps": 0.95
+  }
+ },
+ "rows": [
+  {
+   "seed": 1,
+   "pattern": "P1",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 1,
+   "pattern": "P2",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 1,
+   "pattern": "P3",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 1,
+   "pattern": "P4",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 1,
+   "pattern": "P5",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 1,
+   "pattern": "P6",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [
+    "risk raised from medium to high by the safety rules"
+   ],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 0.5,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 1,
+   "pattern": "P7",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 1,
+   "pattern": "P8",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 2,
+   "pattern": "P1",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 2,
+   "pattern": "P2",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 2,
+   "pattern": "P3",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 2,
+   "pattern": "P4",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 2,
+   "pattern": "P5",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 2,
+   "pattern": "P6",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [
+    "risk raised from medium to high by the safety rules"
+   ],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 0.5,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 2,
+   "pattern": "P7",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   }
+  },
+  {
+   "seed": 2,
+   "pattern": "P8",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 3,
+   "pattern": "P1",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 3,
+   "pattern": "P2",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 3,
+   "pattern": "P3",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 3,
+   "pattern": "P4",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 3,
+   "pattern": "P5",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 3,
+   "pattern": "P6",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [
+    "risk raised from medium to high by the safety rules"
+   ],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 0.5,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 3,
+   "pattern": "P7",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   }
+  },
+  {
+   "seed": 3,
+   "pattern": "P8",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 4,
+   "pattern": "P1",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 4,
+   "pattern": "P2",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 4,
+   "pattern": "P3",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 4,
+   "pattern": "P4",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 4,
+   "pattern": "P5",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 4,
+   "pattern": "P6",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [
+    "risk raised from medium to high by the safety rules"
+   ],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 0.5,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 4,
+   "pattern": "P7",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   }
+  },
+  {
+   "seed": 4,
+   "pattern": "P8",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 5,
+   "pattern": "P1",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 5,
+   "pattern": "P2",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 5,
+   "pattern": "P3",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 5,
+   "pattern": "P4",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 5,
+   "pattern": "P5",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 0.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 5,
+   "pattern": "P6",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [
+    "risk raised from medium to high by the safety rules"
+   ],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 0.5,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  },
+  {
+   "seed": 5,
+   "pattern": "P7",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 0.5,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 0.5
+   }
+  },
+  {
+   "seed": 5,
+   "pattern": "P8",
+   "model_used": true,
+   "model_fixes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ],
+   "guard_changes": [],
+   "rules": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   },
+   "model_guarded": {
+    "trigger": 1.0,
+    "systems": 1.0,
+    "approval": 1.0,
+    "risk": 1.0,
+    "key_steps": 1.0
+   }
+  }
+ ],
+ "answers_needing_list_fix": 40,
+ "answers_changed_by_guard": 5,
+ "model_answers_used": 40,
+ "items": 40
+}

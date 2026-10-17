@@ -1,0 +1,24 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automate Supplier Bill Entry",
+  "trigger_type": "email",
+  "trigger": "An email arrives with a new supplier invoice notification from Hot Water Hub.",
+  "steps": [
+   "Read the incoming supplier invoice email.",
+   "Extract the invoice reference, amount, and due date.",
+   "Draft a new supplier bill entry in the accounts system.",
+   "Wait for human approval to avoid entering incorrect payment details.",
+   "Publish the bill into the accounts system."
+  ],
+  "ai_help": "Extracting the invoice reference, amount, and due date from the email text.",
+  "human_approval": "Emma reviews and approves the drafted supplier bill before it is finally saved in the accounts system.",
+  "needs_approval": true,
+  "risk": "medium",
+  "risk_reason": "If the automation makes a mistake, incorrect bills or amounts could be entered into the financial accounts.",
+  "systems": [
+   "email",
+   "accounts"
+  ]
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Daily Customer Reminder Calls",
+  "trigger_type": "schedule",
+  "trigger": "Triggered every working day at 16:00 to prepare reminder calls.",
+  "steps": [
+   "Pull the list of customers scheduled for upcoming appointments from the jobs system.",
+   "Draft a polite reminder message or call script for each customer using AI.",
+   "Queue the reminder calls in the phone system for Claire to review.",
+   "Review the queued call list and make the phone calls."
+  ],
+  "ai_help": "Drafting call scripts and sorting the customer list by appointment time.",
+  "human_approval": "Claire must review the final list of calls before dialing.",
+  "needs_approval": true,
+  "risk": "low",
+  "risk_reason": "If the automation makes a mistake, a customer might receive a reminder call at the wrong time or with incorrect details, which is a minor inconvenience.",
+  "systems": [
+   "phone"
+  ]
+ }
+}

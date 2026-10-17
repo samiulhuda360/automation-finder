@@ -1,0 +1,23 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automate Supplier Bill Entry from Invoices",
+  "trigger_type": "email",
+  "trigger": "An email is received with a subject line indicating a new supplier invoice and payment due date.",
+  "steps": [
+   "Receive the supplier invoice email from DrainPro.",
+   "Extract the invoice reference number, amount, and payment due date.",
+   "Draft a new supplier bill in the accounts system with the extracted details.",
+   "Flag the draft bill for human review before final entry."
+  ],
+  "ai_help": "Extracting the reference number, due date, and amount from the incoming invoice email.",
+  "human_approval": "Emma reviews and approves the draft supplier bill in the accounts system before it is saved.",
+  "needs_approval": true,
+  "risk": "medium",
+  "risk_reason": "Incorrect bill details entered into accounts could lead to overpayment or accounting errors.",
+  "systems": [
+   "email",
+   "accounts"
+  ]
+ }
+}

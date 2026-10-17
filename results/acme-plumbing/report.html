@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where Acme Plumbing loses time</title>
+<style>
+  :root {
+    --ink: #17302d; --muted: #5b6d6a; --line: #d9e2df; --paper: #fbfaf7; --card: #ffffff;
+    --teal: #1f6f66; --teal-soft: #e3f1ee; --copper: #b4632f; --copper-soft: #f6e9df;
+    --low: #2f7d4f; --medium: #a8661c; --high: #a83a2c;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink);
+         font: 16px/1.55 "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 40px 20px 60px; }
+  h1 { font-size: 30px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  h2 { font-size: 21px; margin: 36px 0 12px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  .totals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .stat b { display: block; font-size: 26px; color: var(--teal); }
+  .stat span { color: var(--muted); font-size: 14px; }
+  .note { background: var(--copper-soft); border-left: 4px solid var(--copper); padding: 10px 14px;
+          border-radius: 6px; font-size: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px;
+          margin: 16px 0; page-break-inside: avoid; }
+  .card header { display: flex; gap: 14px; align-items: baseline; }
+  .rank { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--teal); color: #fff;
+          display: grid; place-items: center; font-weight: 700; }
+  .card h3 { margin: 0; font-size: 19px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px 48px; }
+  .pill { font-size: 13px; padding: 3px 10px; border-radius: 99px; background: var(--teal-soft); }
+  .pill.low { background: #e4f2e9; color: var(--low); } .pill.medium { background: #f7ecd9; color: var(--medium); }
+  .pill.high { background: #f6e1dd; color: var(--high); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 28px; margin: 12px 0 0 48px; }
+  .grid h4 { margin: 10px 0 4px; font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .grid p, .grid ul { margin: 0; } .grid ul { padding-left: 18px; }
+  .wide { grid-column: 1 / -1; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  .num { text-align: right; white-space: nowrap; }
+  footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+  @media (max-width: 640px) { .totals, .grid { grid-template-columns: 1fr; } .grid, .pills { margin-left: 0; } }
+  @media print { body { background: #fff; } main { padding: 0; } .card { border-color: #bbb; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Where Acme Plumbing loses time</h1>
+  <p class="sub">Based on 4,982 records from 2026-06-01 to 2026-08-24
+    (2.8 months): 3953 activity log entries, 898 email records, 84 helpdesk tickets, 47 calendar entries.</p>
+
+  <div class="totals">
+    <div class="stat"><b>10</b><span>repeated tasks found</span></div>
+    <div class="stat"><b>47 h</b><span>a month spent on the top 5</span></div>
+    <div class="stat"><b>32 h</b><span>a month that automation could give back</span></div>
+  </div>
+  <p class="note"><b>These hours are estimates.</b> Each one is "how often it happens" (counted from your records)
+    times "minutes per task" (an assumption you can change). The minutes used are listed with each item.</p>
+
+  <h2>The top 5 opportunities</h2>
+  
+  <section class="card">
+    <header><div class="rank">1</div><h3>Automated Invoice Generation on Job Completion</h3></header>
+    <div class="pills">
+      <span class="pill">about 29 h a month now</span>
+      <span class="pill">saves about 17 h a month</span>
+      <span class="pill">moderate to set up</span>
+      <span class="pill medium">medium risk</span>
+    </div>
+    <div class="grid">
+      <div class="wide"><h4>What happens today</h4><p>First one of 8 people (Ben, Ryan and others) does &#39;complete job in jobs&#39;; then Emma does &#39;create invoice in accounts&#39;. This happens about 292 times a month.</p></div>
+      <div><h4>What starts it</h4><p>A field worker marks a job as complete in the jobs system.</p></div>
+      <div><h4>Steps the automation takes</h4><ul><li>Detect when a job status changes to complete in the jobs system.</li><li>Extract job details, customer information, and line items from the completed job.</li><li>Draft a new invoice in the accounts system using the extracted details.</li><li>Send the drafted invoice to Emma for review and approval.</li></ul></div>
+      <div><h4>Where AI helps</h4><ul><li>Extracts job details and line items to automatically draft the correct invoice in the accounts system.</li></ul></div>
+      <div><h4>Where a person still decides</h4><ul><li>Emma must review and approve the draft invoice in the accounts system before it is sent to the customer.</li></ul></div>
+      <div class="wide"><h4>Why this risk level</h4><p>Incorrect invoice amounts or details could lead to billing errors and customer dissatisfaction.</p></div>
+      <div class="wide"><h4>How the hours were worked out</h4>
+        <p>292 times a month &times; 6 minutes
+        = 29.1 hours. An automation like this usually removes about
+        60% of that work.</p></div>
+    </div>
+  </section>
+  
+  <section class="card">
+    <header><div class="rank">2</div><h3>Daily Customer Reminder Calls</h3></header>
+    <div class="pills">
+      <span class="pill">about 10 h a month now</span>
+      <span class="pill">saves about 8 h a month</span>
+      <span class="pill">easy to set up</span>
+      <span class="pill low">low risk</span>
+    </div>
+    <div class="grid">
+      <div class="wide"><h4>What happens today</h4><p>Claire does the same routine every working day around 16:00: “reminder call (phone)”. That is about 153 tasks a month.</p></div>
+      <div><h4>What starts it</h4><p>Triggers every working day at 16:00 to prepare daily reminder calls.</p></div>
+      <div><h4>Steps the automation takes</h4><ul><li>Generate the list of customers who need a reminder call for the next working day</li><li>Draft a friendly reminder script for each customer</li><li>Queue the call list and notes for review</li></ul></div>
+      <div><h4>Where AI helps</h4><ul><li>Summarize customer booking details and draft personalized reminder notes.</li></ul></div>
+      <div><h4>Where a person still decides</h4><ul><li>Claire reviews the call list and approved reminder notes before dialing.</li></ul></div>
+      <div class="wide"><h4>Why this risk level</h4><p>Mistakes only result in an incorrect reminder call time, which can be quickly corrected over the phone.</p></div>
+      <div class="wide"><h4>How the hours were worked out</h4>
+        <p>153 times a month &times; 4 minutes
+        = 10.2 hours. An automation like this usually removes about
+        80% of that work.</p></div>
+    </div>
+  </section>
+  
+  <section class="card">
+    <header><div class="rank">3</div><h3>Automate CRM Lead Creation from Quote Request Emails</h3></header>
+    <div class="pills">
+      <span class="pill">about 3 h a month now</span>
+      <span class="pill">saves about 2 h a month</span>
+      <span class="pill">easy to set up</span>
+      <span class="pill low">low risk</span>
+    </div>
+    <div class="grid">
+      <div class="wide"><h4>What happens today</h4><p>Claire receives an email like “New quote request: Shower mixer replacement - Mangere Bridge” and then types it into crm (create lead) by hand, about 35 times a month.</p></div>
+      <div><h4>What starts it</h4><p>A new quote request email is received from a potential customer.</p></div>
+      <div><h4>Steps the automation takes</h4><ul><li>Receive the incoming quote request email.</li><li>Extract the customer details, job description, and location using AI.</li><li>Check if a lead already exists in the CRM system.</li><li>Create a new lead in the CRM with the extracted information.</li></ul></div>
+      <div><h4>Where AI helps</h4><ul><li>Extracts relevant customer and job details from the email text to format them correctly for the CRM.</li></ul></div>
+      <div><h4>Where a person still decides</h4><p>Nothing to approve; the person gets a summary.</p></div>
+      <div class="wide"><h4>Why this risk level</h4><p>If the automation makes a mistake, an incorrect lead is created in the CRM which can be easily edited or deleted by Claire.</p></div>
+      <div class="wide"><h4>How the hours were worked out</h4>
+        <p>35 times a month &times; 5 minutes
+        = 2.9 hours. An automation like this usually removes about
+        80% of that work.</p></div>
+    </div>
+  </section>
+  
+  <section class="card">
+    <header><div class="rank">4</div><h3>Automate Supplier Bill Entry from Invoices</h3></header>
+    <div class="pills">
+      <span class="pill">about 2 h a month now</span>
+      <span class="pill">saves about 2 h a month</span>
+      <span class="pill">easy to set up</span>
+      <span class="pill medium">medium risk</span>
+    </div>
+    <div class="grid">
+      <div class="wide"><h4>What happens today</h4><p>Emma receives an email like “DrainPro invoice [ref] - payment due in [n] days” and then types it into accounts (enter supplier bill) by hand, about 28 times a month.</p></div>
+      <div><h4>What starts it</h4><p>An email is received with a subject line indicating a new supplier invoice and payment due date.</p></div>
+      <div><h4>Steps the automation takes</h4><ul><li>Receive the supplier invoice email from DrainPro.</li><li>Extract the invoice reference number, amount, and payment due date.</li><li>Draft a new supplier bill in the accounts system with the extracted details.</li><li>Flag the draft bill for human review before final entry.</li></ul></div>
+      <div><h4>Where AI helps</h4><ul><li>Extracting the reference number, due date, and amount from the incoming invoice email.</li></ul></div>
+      <div><h4>Where a person still decides</h4><ul><li>Emma reviews and approves the draft supplier bill in the accounts system before it is saved.</li></ul></div>
+      <div class="wide"><h4>Why this risk level</h4><p>Incorrect bill details entered into accounts could lead to overpayment or accounting errors.</p></div>
+      <div class="wide"><h4>How the hours were worked out</h4>
+        <p>28 times a month &times; 5 minutes
+        = 2.3 hours. An automation like this usually removes about
+        80% of that work.</p></div>
+    </div>
+  </section>
+  
+  <section class="card">
+    <header><div class="rank">5</div><h3>Monthly KPI Report Automation</h3></header>
+    <div class="pills">
+      <span class="pill">about 2 h a month now</span>
+      <span class="pill">saves about 2 h a month</span>
+      <span class="pill">easy to set up</span>
+      <span class="pill low">low risk</span>
+    </div>
+    <div class="grid">
+      <div class="wide"><h4>What happens today</h4><p>Sarah does the same routine on the first working day of each month around 09:00: “Monthly KPI report”, “export job report (jobs)”, “update kpi spreadsheet (spreadsheet)”. That is once a month.</p></div>
+      <div><h4>What starts it</h4><p>Triggered on the first working day of each month at 09:00.</p></div>
+      <div><h4>Steps the automation takes</h4><ul><li>Export the latest job report from the jobs system</li><li>Calculate the key performance indicators from the exported data</li><li>Update the monthly KPI spreadsheet with the new figures</li><li>Send the final KPI report via email to management</li></ul></div>
+      <div><h4>Where AI helps</h4><ul><li>AI calculates key metrics and summarizes the job report data before updating the spreadsheet.</li></ul></div>
+      <div><h4>Where a person still decides</h4><ul><li>Review and approve the updated KPI spreadsheet and email before it is sent to management.</li></ul></div>
+      <div class="wide"><h4>Why this risk level</h4><p>Mistakes in internal KPI reporting are easily corrected and do not directly impact customers or finances.</p></div>
+      <div class="wide"><h4>How the hours were worked out</h4>
+        <p>1 times a month &times; 120 minutes
+        = 2.2 hours. An automation like this usually removes about
+        80% of that work.</p></div>
+    </div>
+  </section>
+  
+
+  
+  <h2>Other repeated work we found</h2>
+  <table>
+    <tr><th>What</th><th>Who</th><th class="num">Times a month</th><th class="num">Hours a month</th></tr>
+    
+    <tr><td>James does the same routine every Friday around 13:30: “check timesheet status (payroll)”, “Timesheet reminder - week ending [date]”, “Please submit your timesheet for [date] [date]”. That is about 23 tasks a month.</td><td>James</td>
+      <td class="num">23</td><td class="num">1.6</td></tr>
+    
+    <tr><td>First one of 8 people (Tom, Jack and others) emails “PO request [ref]: toilet suite”; then James emails “PO request [ref]: toilet suite - approval needed ([amount])”; then Sarah emails “PO request [ref]: toilet suite - approved”; then James does &#39;create purchase order in accounts&#39;. This happens about 12 times a month.</td><td>James, Sarah</td>
+      <td class="num">12</td><td class="num">2.4</td></tr>
+    
+    <tr><td>Claire receives a helpdesk ticket like “Move my plumbing appointment” and then types it into jobs (reschedule booking) by hand, about 12 times a month.</td><td>Claire</td>
+      <td class="num">12</td><td class="num">1.0</td></tr>
+    
+    <tr><td>Claire answers the same kind of request again and again, such as “Availability next week”: about 4 a month, worded differently each time.</td><td>Claire</td>
+      <td class="num">4</td><td class="num">0.4</td></tr>
+    
+    <tr><td>Claire answers the same kind of request again and again, such as “Thanks for the quick visit”: about 2 a month, worded differently each time.</td><td>Claire</td>
+      <td class="num">2</td><td class="num">0.2</td></tr>
+    
+  </table>
+  
+
+  <footer>Made with automation-finder. Each opportunity comes with a ready-to-import n8n workflow sketch.
+    Records were read as exported; message bodies were not needed.</footer>
+</main>
+</body>
+</html>

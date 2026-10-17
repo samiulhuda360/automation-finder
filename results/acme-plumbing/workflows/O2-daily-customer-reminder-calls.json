@@ -1,0 +1,328 @@
+{
+  "id": "93dd1d6183e35b96",
+  "name": "O2 - Daily Customer Reminder Calls",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "907832b8-affa-5f1d-80b4-756f13df137f",
+      "name": "Try with sample data",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n \"subject\": \"reminder call (phone)\",\n \"text\": \"reminder call (phone)\",\n \"from\": \"sample@example.com\",\n \"reference\": \"REF-1001\",\n \"sample\": true\n}",
+        "options": {}
+      },
+      "id": "adb7a3b0-c085-50d4-9da3-8d76ed4dd1b2",
+      "name": "Sample record",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "daysInterval": 1,
+              "triggerAtHour": 16
+            }
+          ]
+        }
+      },
+      "id": "e9c5df0c-b11f-56b1-ae16-d402edf692a1",
+      "name": "Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Keep only the items that belong to this pattern (words taken from the examples found in the data).\nconst PATTERN = /call|phone|reminder/i;\nreturn $input.all().filter((item) => {\n  const j = item.json;\n  const text = [j.subject, j.title, j.text, j.action, j.description].filter(Boolean).join(' ');\n  return text === '' || PATTERN.test(text);\n});\n"
+      },
+      "id": "d03a3321-c708-5330-81bb-a206d691e8cb",
+      "name": "Match this pattern",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ ($env.AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta/openai') + '/chat/completions' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.AI_API_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: $env.AI_MODEL || 'gemini-flash-lite-latest', temperature: 0, response_format: { type: 'json_object' }, messages: [ { role: 'system', content: \"You help automate this task: Daily Customer Reminder Calls. Steps: Generate the list of customers who need a reminder call for the next working day | Draft a friendly reminder script for each customer | Queue the call list and notes for review. From the item below, return JSON with the fields needed and a confidence from 0 to 1.\" }, { role: 'user', content: JSON.stringify($json) } ] }) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "ca746878-e78b-5044-bda1-bebfe45d1292",
+      "name": "AI: read and extract",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        -100
+      ],
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "// If the model call failed or answered badly, pass the item on for a person to handle.\nlet fields = {};\ntry { fields = JSON.parse($json.choices[0].message.content); } catch (e) { fields = {}; }\nconst original = $('Match this pattern').item.json;\nconst confidence = Number(fields.confidence || 0);\nconst needs_person = confidence < 0.8;\nreturn { json: { ...original, extracted: fields, confidence, needs_person } };\n"
+      },
+      "id": "03715acd-4321-558c-ba54-a2065da99129",
+      "name": "Use AI answer or fall back",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.APPROVAL_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: 'Please approve: ' + ($json.subject || $json.text || 'item') + ' (reply via ' + $execution.resumeUrl + ')' }) }}",
+        "options": {}
+      },
+      "id": "e9f6d31a-4408-5526-b1d4-c647b6323c8f",
+      "name": "Ask for approval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        -100
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "httpMethod": "POST",
+        "options": {}
+      },
+      "id": "f5b6dc51-907d-5eaa-883f-bc6e8dba256c",
+      "name": "Wait for the decision",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        -100
+      ],
+      "webhookId": "25b1f18b-5acd-5ba4-9711-c5de7444ed48"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "2747645a-3442-5daa-b95e-9be9538a2ef0",
+              "leftValue": "={{ $json.body ? $json.body.approved : false }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "23944ab5-8013-58a0-824b-61e739788e5b",
+      "name": "Approved?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.PHONE_API_URL }}/records",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "ad015472-78ac-5d00-848e-196fe2ef4ba8",
+      "name": "Do the routine in phone",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Daily Customer Reminder Calls\nToday: Claire does the same routine every working day around 16:00: \u201creminder call (phone)\u201d. That is about 153 tasks a month.\nEstimated time saved: 8.14 hours a month (an estimate; see the report).\nRisk: low - Mistakes only result in an incorrect reminder call time, which can be quickly corrected over the phone.\n\nBefore switching on: set the trigger's credentials, PHONE_API_URL, APPROVAL_WEBHOOK_URL and AI_API_KEY in the n8n environment.",
+        "height": 300,
+        "width": 620,
+        "color": 4
+      },
+      "id": "bf347077-de07-5891-9b6c-3dd5610d7feb",
+      "name": "About this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Try with sample data": {
+      "main": [
+        [
+          {
+            "node": "Sample record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule": {
+      "main": [
+        [
+          {
+            "node": "Match this pattern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sample record": {
+      "main": [
+        [
+          {
+            "node": "Match this pattern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Match this pattern": {
+      "main": [
+        [
+          {
+            "node": "AI: read and extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI: read and extract": {
+      "main": [
+        [
+          {
+            "node": "Use AI answer or fall back",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Use AI answer or fall back": {
+      "main": [
+        [
+          {
+            "node": "Ask for approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask for approval": {
+      "main": [
+        [
+          {
+            "node": "Wait for the decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for the decision": {
+      "main": [
+        [
+          {
+            "node": "Approved?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approved?": {
+      "main": [
+        [
+          {
+            "node": "Do the routine in phone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "description": "Claire does the same routine every working day around 16:00: \u201creminder call (phone)\u201d. That is about 153 tasks a month."
+  },
+  "tags": []
+}

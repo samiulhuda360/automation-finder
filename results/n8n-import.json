@@ -1,0 +1,27 @@
+{
+ "ran": true,
+ "ok": true,
+ "n8n_version": "2.8.4",
+ "workflows": [
+  {
+   "name": "O1 - Automated Invoice Generation on Job Completion",
+   "imported": true
+  },
+  {
+   "name": "O2 - Daily Customer Reminder Calls",
+   "imported": true
+  },
+  {
+   "name": "O3 - Automate CRM Lead Creation from Quote Request Emails",
+   "imported": true
+  },
+  {
+   "name": "O4 - Automate Supplier Bill Entry from Invoices",
+   "imported": true
+  },
+  {
+   "name": "O5 - Monthly KPI Report Automation",
+   "imported": true
+  }
+ ]
+}

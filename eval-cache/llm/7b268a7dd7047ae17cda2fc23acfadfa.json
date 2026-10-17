@@ -1,0 +1,23 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Purchase Order Approval and Creation",
+  "trigger_type": "email",
+  "trigger": "An employee emails a purchase order request with reference details.",
+  "steps": [
+   "Receive the initial purchase order request via email.",
+   "Extract the item details and amount, then forward the request to Sarah for approval.",
+   "Wait for Sarah to reply with approval.",
+   "Draft the purchase order in the accounts system."
+  ],
+  "ai_help": "Extracting the reference, item, amount, and requestor details from the initial email to set up the approval task.",
+  "human_approval": "Sarah must approve the purchase order amount, and James must review and approve the final purchase order creation in the accounts system.",
+  "needs_approval": true,
+  "risk": "medium",
+  "risk_reason": "Mistakes in purchase orders could lead to incorrect spending, ordering wrong inventory, or unauthorized financial commitments.",
+  "systems": [
+   "email",
+   "accounts"
+  ]
+ }
+}

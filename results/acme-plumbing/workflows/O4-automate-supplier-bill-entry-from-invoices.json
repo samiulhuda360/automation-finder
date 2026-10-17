@@ -1,0 +1,322 @@
+{
+  "id": "de7ed962fe26584b",
+  "name": "O4 - Automate Supplier Bill Entry from Invoices",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "ac373f3e-6285-5949-bd72-4c1114c96be3",
+      "name": "Try with sample data",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n \"subject\": \"DrainPro invoice [ref] - payment due in [n] days\",\n \"text\": \"DrainPro invoice [ref] - payment due in [n] days\",\n \"from\": \"sample@example.com\",\n \"reference\": \"REF-1001\",\n \"sample\": true\n}",
+        "options": {}
+      },
+      "id": "f41e33e0-39d3-5b4a-8fe0-5dfefca0f388",
+      "name": "Sample record",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mailbox": "INBOX",
+        "postProcessAction": "nothing",
+        "options": {}
+      },
+      "id": "cbdad654-c078-5b53-9ae8-fb294d18e19f",
+      "name": "New email (IMAP)",
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Keep only the items that belong to this pattern (words taken from the examples found in the data).\nconst PATTERN = /accounts|bill|days|drainpro|enter|invoice|payment|supplier/i;\nreturn $input.all().filter((item) => {\n  const j = item.json;\n  const text = [j.subject, j.title, j.text, j.action, j.description].filter(Boolean).join(' ');\n  return text === '' || PATTERN.test(text);\n});\n"
+      },
+      "id": "009ad954-e986-5838-86a7-2e074f4d0286",
+      "name": "Match this pattern",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ ($env.AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta/openai') + '/chat/completions' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.AI_API_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: $env.AI_MODEL || 'gemini-flash-lite-latest', temperature: 0, response_format: { type: 'json_object' }, messages: [ { role: 'system', content: \"You help automate this task: Automate Supplier Bill Entry from Invoices. Steps: Receive the supplier invoice email from DrainPro. | Extract the invoice reference number, amount, and payment due date. | Draft a new supplier bill in the accounts system with the extracted details. | Flag the draft bill for human review before final entry.. From the item below, return JSON with the fields needed and a confidence from 0 to 1.\" }, { role: 'user', content: JSON.stringify($json) } ] }) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "c478fc69-55ab-56ae-b3de-b06ebadd6461",
+      "name": "AI: read and extract",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        -100
+      ],
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "// If the model call failed or answered badly, pass the item on for a person to handle.\nlet fields = {};\ntry { fields = JSON.parse($json.choices[0].message.content); } catch (e) { fields = {}; }\nconst original = $('Match this pattern').item.json;\nconst confidence = Number(fields.confidence || 0);\nconst needs_person = confidence < 0.8;\nreturn { json: { ...original, extracted: fields, confidence, needs_person } };\n"
+      },
+      "id": "aa549086-4fbb-5f57-b343-7cf531526268",
+      "name": "Use AI answer or fall back",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.APPROVAL_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: 'Please approve: ' + ($json.subject || $json.text || 'item') + ' (reply via ' + $execution.resumeUrl + ')' }) }}",
+        "options": {}
+      },
+      "id": "8495d18c-8ffd-59ee-a377-fccb9be82fbd",
+      "name": "Ask for approval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        -100
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "httpMethod": "POST",
+        "options": {}
+      },
+      "id": "0e47e521-beb6-5b38-ad75-3dc7dd0b6ee8",
+      "name": "Wait for the decision",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        -100
+      ],
+      "webhookId": "0e26dde4-57f6-5cf9-b94b-051e5d45d567"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "0e058d9f-6e39-5d31-986e-3076224278a4",
+              "leftValue": "={{ $json.body ? $json.body.approved : false }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0bfeb73f-7f4d-5268-a1d7-a5b5cb8ad6e0",
+      "name": "Approved?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.ACCOUNTS_API_URL }}/records",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "9dd4e78b-f19a-5746-b5ed-2b4a8806cdfc",
+      "name": "Write to accounts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Automate Supplier Bill Entry from Invoices\nToday: Emma receives an email like \u201cDrainPro invoice [ref] - payment due in [n] days\u201d and then types it into accounts (enter supplier bill) by hand, about 28 times a month.\nEstimated time saved: 1.86 hours a month (an estimate; see the report).\nRisk: medium - Incorrect bill details entered into accounts could lead to overpayment or accounting errors.\n\nBefore switching on: set the trigger's credentials, ACCOUNTS_API_URL, APPROVAL_WEBHOOK_URL and AI_API_KEY in the n8n environment.",
+        "height": 300,
+        "width": 620,
+        "color": 4
+      },
+      "id": "09d9f4e0-5ed3-54ec-a96f-2246eb456c3c",
+      "name": "About this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Try with sample data": {
+      "main": [
+        [
+          {
+            "node": "Sample record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New email (IMAP)": {
+      "main": [
+        [
+          {
+            "node": "Match this pattern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sample record": {
+      "main": [
+        [
+          {
+            "node": "Match this pattern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Match this pattern": {
+      "main": [
+        [
+          {
+            "node": "AI: read and extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI: read and extract": {
+      "main": [
+        [
+          {
+            "node": "Use AI answer or fall back",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Use AI answer or fall back": {
+      "main": [
+        [
+          {
+            "node": "Ask for approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask for approval": {
+      "main": [
+        [
+          {
+            "node": "Wait for the decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for the decision": {
+      "main": [
+        [
+          {
+            "node": "Approved?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approved?": {
+      "main": [
+        [
+          {
+            "node": "Write to accounts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "description": "Emma receives an email like \u201cDrainPro invoice [ref] - payment due in [n] days\u201d and then types it into accounts (enter supplier bill) by hand, about 28 times a month."
+  },
+  "tags": []
+}

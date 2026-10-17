@@ -1,0 +1,24 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automate Supplier Bill Entry",
+  "trigger_type": "email",
+  "trigger": "An email with a supplier invoice from Plumbing World arrives.",
+  "steps": [
+   "Receive the supplier invoice email.",
+   "Extract the invoice details including reference number and amount.",
+   "Draft a new supplier bill in the accounts system.",
+   "Review the drafted bill details for accuracy.",
+   "Approve and save the bill in the accounts system."
+  ],
+  "ai_help": "Read the incoming invoice email and extract the bill details like reference and amount.",
+  "human_approval": "Emma reviews and approves the drafted bill before it is finally saved in the accounts system.",
+  "needs_approval": true,
+  "risk": "medium",
+  "risk_reason": "Incorrect amounts or supplier details could lead to financial errors or duplicate payments.",
+  "systems": [
+   "email",
+   "accounts"
+  ]
+ }
+}

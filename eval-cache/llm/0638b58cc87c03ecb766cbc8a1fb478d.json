@@ -1,0 +1,23 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automate CRM Lead Creation from Quote Request Emails",
+  "trigger_type": "email",
+  "trigger": "An email arrives with a subject line indicating a new quote request.",
+  "steps": [
+   "Receive the incoming quote request email.",
+   "Extract the customer details and job description from the email body.",
+   "Format the extracted information into a new lead profile.",
+   "Create the new lead in the CRM system."
+  ],
+  "ai_help": "AI extracts the customer name, location, and service requested from the email text to map directly into the CRM fields.",
+  "human_approval": "",
+  "needs_approval": false,
+  "risk": "low",
+  "risk_reason": "If the automation fails, a lead might be missed or have a typo, but no money or customer-facing commitments are changed automatically.",
+  "systems": [
+   "email",
+   "crm"
+  ]
+ }
+}

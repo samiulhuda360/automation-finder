@@ -1,0 +1,23 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Auto-Create Invoice on Job Completion",
+  "trigger_type": "app_event",
+  "trigger": "A technician marks a job as complete in the jobs system.",
+  "steps": [
+   "Detect when a job status changes to complete in the jobs system",
+   "Extract job details, customer information, and line items",
+   "Draft a new invoice in the accounts system using the job details",
+   "Send the drafted invoice to Emma for review"
+  ],
+  "ai_help": "Extracting line items and matching the job details to the correct customer in the accounts system.",
+  "human_approval": "Emma must review and approve the draft invoice before it is finalized and sent to the customer.",
+  "needs_approval": true,
+  "risk": "medium",
+  "risk_reason": "An incorrect invoice amount or wrong billing details could be sent to a customer if not checked.",
+  "systems": [
+   "jobs",
+   "accounts"
+  ]
+ }
+}

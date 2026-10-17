@@ -1,0 +1,23 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automate Visit Rescheduling",
+  "trigger_type": "ticket",
+  "trigger": "A customer submits a helpdesk ticket requesting to reschedule their visit.",
+  "steps": [
+   "Read the incoming helpdesk ticket to find the customer name and requested new visit time.",
+   "Search for the existing booking in the jobs system.",
+   "Update the booking date and time in the jobs system.",
+   "Draft a reply in the helpdesk confirming the new schedule for human review."
+  ],
+  "ai_help": "Extracts the requested date and time from the ticket text and matches it to the correct customer in the jobs system.",
+  "human_approval": "Claire must approve the updated booking time and the reply sent to the customer.",
+  "needs_approval": true,
+  "risk": "medium",
+  "risk_reason": "If the automation picks the wrong booking or time, the service visit will happen at the wrong time.",
+  "systems": [
+   "helpdesk",
+   "jobs"
+  ]
+ }
+}

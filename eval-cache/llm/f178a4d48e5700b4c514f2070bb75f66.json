@@ -1,0 +1,24 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automated Plumber Visit Rescheduling from Helpdesk",
+  "trigger_type": "ticket",
+  "trigger": "A helpdesk ticket requests a plumber visit reschedule.",
+  "steps": [
+   "Read the incoming helpdesk ticket details to identify the booking and requested new date.",
+   "Extract the target date and customer information using AI.",
+   "Locate the existing booking in the jobs system.",
+   "Update the booking schedule in the jobs system.",
+   "Reply to the customer in the helpdesk confirming the new date."
+  ],
+  "ai_help": "Extracts the requested new date and booking reference from the customer's helpdesk ticket.",
+  "human_approval": "Claire must approve changing the booking date in the jobs system.",
+  "needs_approval": true,
+  "risk": "medium",
+  "risk_reason": "Rescheduling a job incorrectly could lead to missed appointments and unhappy customers.",
+  "systems": [
+   "helpdesk",
+   "jobs"
+  ]
+ }
+}

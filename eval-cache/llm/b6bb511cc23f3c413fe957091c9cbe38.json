@@ -1,0 +1,23 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automate Quote Lead Creation",
+  "trigger_type": "email",
+  "trigger": "A new quote request email is received from a potential customer.",
+  "steps": [
+   "Read the incoming quote request email.",
+   "Extract the customer name, contact details, and job description.",
+   "Check if the lead already exists in the crm.",
+   "Create a new lead in the crm using the extracted details."
+  ],
+  "ai_help": "Extracting customer details and job requirements from the unstructured email text.",
+  "human_approval": "",
+  "needs_approval": false,
+  "risk": "low",
+  "risk_reason": "Creating a duplicate or slightly mislabeled internal lead record has minimal negative impact and can be easily corrected.",
+  "systems": [
+   "email",
+   "crm"
+  ]
+ }
+}

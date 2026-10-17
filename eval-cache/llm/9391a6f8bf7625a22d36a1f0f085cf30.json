@@ -1,0 +1,24 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automate Purchase Order Approval and Creation",
+  "trigger_type": "email",
+  "trigger": "An email is received with a purchase order request.",
+  "steps": [
+   "Read the incoming purchase order request email from the team member.",
+   "Extract the item details and estimated amount.",
+   "Route the request to Sarah for review and approval.",
+   "Wait for Sarah's approval response.",
+   "Create the purchase order in the accounts system once approved."
+  ],
+  "ai_help": "AI extracts the item description, reference number, and amount from the email text.",
+  "human_approval": "Sarah must approve the purchase order before it is created in the accounts system.",
+  "needs_approval": true,
+  "risk": "medium",
+  "risk_reason": "A mistake could result in unauthorized purchases or incorrect spending recorded in the accounts.",
+  "systems": [
+   "email",
+   "accounts"
+  ]
+ }
+}

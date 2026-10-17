@@ -1,0 +1,22 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automate Timesheet Reminders",
+  "trigger_type": "schedule",
+  "trigger": "Every Friday at 13:30, check the payroll system for missing timesheets.",
+  "steps": [
+   "Run a scheduled check in the payroll system to find staff with unsubmitted timesheets.",
+   "Draft a reminder email for each person who has not yet submitted their timesheet.",
+   "Send the reminder email automatically to the relevant staff members."
+  ],
+  "ai_help": "Drafting personalized reminder emails based on the missing dates from the payroll system.",
+  "human_approval": "",
+  "needs_approval": false,
+  "risk": "low",
+  "risk_reason": "If the automation makes a mistake, employees might receive an incorrect reminder to submit their timesheet.",
+  "systems": [
+   "payroll",
+   "email"
+  ]
+ }
+}

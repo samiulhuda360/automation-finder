@@ -1,0 +1,23 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automate Supplier Bill Entry",
+  "trigger_type": "email",
+  "trigger": "A new supplier invoice email arrives from Plumbing World.",
+  "steps": [
+   "Receive the supplier invoice email.",
+   "Extract the invoice details such as reference number, amount, and supplier name.",
+   "Draft a new supplier bill in the accounts system.",
+   "Review the drafted bill for accuracy and approve it."
+  ],
+  "ai_help": "Reads the PDF or email body to extract key invoice details like the reference and amount.",
+  "human_approval": "Emma must review and approve the entered bill in the accounts system before it is saved.",
+  "needs_approval": true,
+  "risk": "medium",
+  "risk_reason": "Incorrect financial data entry could lead to accounting errors or double-paying bills.",
+  "systems": [
+   "email",
+   "accounts"
+  ]
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automate Rescheduling from Helpdesk Tickets",
+  "trigger_type": "ticket",
+  "trigger": "A customer submits a helpdesk ticket requesting to reschedule a booking.",
+  "steps": [
+   "Read the incoming helpdesk ticket to identify the customer and requested new time.",
+   "Search the jobs system for the customer's existing booking.",
+   "Draft the booking reschedule in the jobs system.",
+   "Send a confirmation reply to the customer in the helpdesk."
+  ],
+  "ai_help": "Extracts the customer details and requested date from the ticket message.",
+  "human_approval": "Claire must approve the new booking time in the jobs system before the change is finalized.",
+  "needs_approval": true,
+  "risk": "medium",
+  "risk_reason": "If the automation picks the wrong time or customer, a booking could be scheduled incorrectly, causing missed appointments and unhappy customers.",
+  "systems": [
+   "helpdesk",
+   "jobs"
+  ]
+ }
+}

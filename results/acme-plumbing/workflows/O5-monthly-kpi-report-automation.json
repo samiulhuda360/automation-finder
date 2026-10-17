@@ -1,0 +1,329 @@
+{
+  "id": "af7caed97f915af2",
+  "name": "O5 - Monthly KPI Report Automation",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "46c459ed-792e-51a0-87cc-5e94bbad3c53",
+      "name": "Try with sample data",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n \"subject\": \"Monthly KPI report\",\n \"text\": \"Monthly KPI report\",\n \"from\": \"sample@example.com\",\n \"reference\": \"REF-1001\",\n \"sample\": true\n}",
+        "options": {}
+      },
+      "id": "aafbcf47-47a2-5ffe-a91a-72af806fb70b",
+      "name": "Sample record",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "monthsInterval": 1,
+              "triggerAtDayOfMonth": 1,
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "ed5b8a21-4c8e-5b9b-946e-b709f9a1f302",
+      "name": "Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Keep only the items that belong to this pattern (words taken from the examples found in the data).\nconst PATTERN = /export|jobs|monthly|report|spreadsheet|update/i;\nreturn $input.all().filter((item) => {\n  const j = item.json;\n  const text = [j.subject, j.title, j.text, j.action, j.description].filter(Boolean).join(' ');\n  return text === '' || PATTERN.test(text);\n});\n"
+      },
+      "id": "bccee654-acf4-5389-a8be-21e93b718255",
+      "name": "Match this pattern",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ ($env.AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta/openai') + '/chat/completions' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.AI_API_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: $env.AI_MODEL || 'gemini-flash-lite-latest', temperature: 0, response_format: { type: 'json_object' }, messages: [ { role: 'system', content: \"You help automate this task: Monthly KPI Report Automation. Steps: Export the latest job report from the jobs system | Calculate the key performance indicators from the exported data | Update the monthly KPI spreadsheet with the new figures | Send the final KPI report via email to management. From the item below, return JSON with the fields needed and a confidence from 0 to 1.\" }, { role: 'user', content: JSON.stringify($json) } ] }) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "13325dfa-0358-54df-a917-a1aefc567a20",
+      "name": "AI: read and extract",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        -100
+      ],
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "// If the model call failed or answered badly, pass the item on for a person to handle.\nlet fields = {};\ntry { fields = JSON.parse($json.choices[0].message.content); } catch (e) { fields = {}; }\nconst original = $('Match this pattern').item.json;\nconst confidence = Number(fields.confidence || 0);\nconst needs_person = confidence < 0.8;\nreturn { json: { ...original, extracted: fields, confidence, needs_person } };\n"
+      },
+      "id": "a3d5a764-3db9-5c08-b8a1-08e2606252b3",
+      "name": "Use AI answer or fall back",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.APPROVAL_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: 'Please approve: ' + ($json.subject || $json.text || 'item') + ' (reply via ' + $execution.resumeUrl + ')' }) }}",
+        "options": {}
+      },
+      "id": "e12cf359-3bf7-5590-8e08-f0551e16c508",
+      "name": "Ask for approval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        -100
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "httpMethod": "POST",
+        "options": {}
+      },
+      "id": "379d980f-e9ec-5fbe-8de9-788e995956c8",
+      "name": "Wait for the decision",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        -100
+      ],
+      "webhookId": "c9917f4b-76a7-55e4-97f1-5cc457bc6c3a"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "ce85f5c7-cad2-540c-83d0-b30677c18395",
+              "leftValue": "={{ $json.body ? $json.body.approved : false }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "c4d8cb4e-c137-5023-8434-9c46bf566615",
+      "name": "Approved?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.EMAIL_API_URL }}/records",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "7cb740d0-283d-5b3d-a626-7dee09c69749",
+      "name": "Do the routine in email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Monthly KPI Report Automation\nToday: Sarah does the same routine on the first working day of each month around 09:00: \u201cMonthly KPI report\u201d, \u201cexport job report (jobs)\u201d, \u201cupdate kpi spreadsheet (spreadsheet)\u201d. That is once a month.\nEstimated time saved: 1.76 hours a month (an estimate; see the report).\nRisk: low - Mistakes in internal KPI reporting are easily corrected and do not directly impact customers or finances.\n\nBefore switching on: set the trigger's credentials, EMAIL_API_URL, APPROVAL_WEBHOOK_URL and AI_API_KEY in the n8n environment.",
+        "height": 300,
+        "width": 620,
+        "color": 4
+      },
+      "id": "627d9444-72f6-517b-9a74-5d9d0a82f982",
+      "name": "About this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Try with sample data": {
+      "main": [
+        [
+          {
+            "node": "Sample record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule": {
+      "main": [
+        [
+          {
+            "node": "Match this pattern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sample record": {
+      "main": [
+        [
+          {
+            "node": "Match this pattern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Match this pattern": {
+      "main": [
+        [
+          {
+            "node": "AI: read and extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI: read and extract": {
+      "main": [
+        [
+          {
+            "node": "Use AI answer or fall back",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Use AI answer or fall back": {
+      "main": [
+        [
+          {
+            "node": "Ask for approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask for approval": {
+      "main": [
+        [
+          {
+            "node": "Wait for the decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for the decision": {
+      "main": [
+        [
+          {
+            "node": "Approved?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approved?": {
+      "main": [
+        [
+          {
+            "node": "Do the routine in email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "description": "Sarah does the same routine on the first working day of each month around 09:00: \u201cMonthly KPI report\u201d, \u201cexport job report (jobs)\u201d, \u201cupdate kpi spreadsheet (spreadsheet)\u201d. That is once a month."
+  },
+  "tags": []
+}

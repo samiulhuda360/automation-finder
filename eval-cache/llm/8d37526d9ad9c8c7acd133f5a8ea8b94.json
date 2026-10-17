@@ -1,0 +1,24 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Automated Purchase Order Approval and Creation",
+  "trigger_type": "email",
+  "trigger": "An employee emails a purchase order request with reference details.",
+  "steps": [
+   "Receive the purchase order request email from staff.",
+   "AI extracts the item details, reference, and amount, then drafts an approval request.",
+   "James reviews and routes the approval request to Sarah.",
+   "Sarah reviews the approval decision and grants final sign-off.",
+   "James creates the purchase order in the accounts system."
+  ],
+  "ai_help": "Extracting the item details, reference, and amount from incoming emails to draft approval requests.",
+  "human_approval": "Sarah must approve the purchase order before it is created in the accounts system.",
+  "needs_approval": true,
+  "risk": "medium",
+  "risk_reason": "Mistakes could lead to unauthorized purchases being processed and paid for by the business.",
+  "systems": [
+   "email",
+   "accounts"
+  ]
+ }
+}

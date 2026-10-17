@@ -1,0 +1,21 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Daily Reminder Calls",
+  "trigger_type": "schedule",
+  "trigger": "Triggered every working day at 16:00 to process reminder calls.",
+  "steps": [
+   "Fetch the list of customers scheduled for a reminder call today from the phone system.",
+   "Generate a reminder message for each customer.",
+   "Place the automated reminder calls via the phone system."
+  ],
+  "ai_help": "Generate the reminder call script or message content.",
+  "human_approval": "",
+  "needs_approval": false,
+  "risk": "low",
+  "risk_reason": "Making a mistake simply means a customer receives an incorrect reminder call time, which can be easily corrected.",
+  "systems": [
+   "phone"
+  ]
+ }
+}

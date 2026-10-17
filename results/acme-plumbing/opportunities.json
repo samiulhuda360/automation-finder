@@ -1,0 +1,798 @@
+{
+ "summary": {
+  "events": 4982,
+  "by_source": {
+   "email": 898,
+   "calendar": 47,
+   "activity": 3953,
+   "ticket": 84
+  },
+  "people": 12,
+  "first": "2026-06-01",
+  "last": "2026-08-24",
+  "months": 2.79,
+  "patterns": 37,
+  "opportunities": 10,
+  "embedder": "tfidf"
+ },
+ "opportunities": [
+  {
+   "id": "O1",
+   "kind": "handoff",
+   "kinds": [
+    "handoff"
+   ],
+   "actors": [
+    "emma",
+    "ben",
+    "ryan",
+    "olivia"
+   ],
+   "systems": [
+    "jobs",
+    "accounts"
+   ],
+   "occurrences_per_month": 291.5,
+   "minutes_per_task": 6.0,
+   "default_minutes_per_task": 6.0,
+   "hours_per_month": 29.15,
+   "automation_share": 0.6,
+   "hours_saved_per_month": 17.49,
+   "ease": 2,
+   "risk": "medium",
+   "risk_reason": "it writes financial records in accounts; a wrong entry costs money",
+   "trigger": "app_event",
+   "score": 13.99,
+   "evidence": {
+    "ref_type": "J",
+    "first_step": "jobs:complete job",
+    "approval": false,
+    "steps_per_chain": 2,
+    "common_route": [
+     "jobs:start job",
+     "jobs:complete job",
+     "accounts:create invoice"
+    ],
+    "route": [
+     {
+      "step": "jobs:complete job",
+      "people": [
+       "ben",
+       "ryan",
+       "hannah"
+      ],
+      "count": 8,
+      "example": "complete job: Job sheet signed by customer"
+     },
+     {
+      "step": "accounts:create invoice",
+      "people": [
+       "emma"
+      ],
+      "count": 1,
+      "example": "create invoice: Invoice for Bathroom renovation plumbing"
+     }
+    ]
+   },
+   "examples": [
+    "hannah: start job: Outdoor tap install, Howick",
+    "hannah: complete job: Job sheet signed by customer",
+    "emma: create invoice: Invoice for Outdoor tap install"
+   ],
+   "target_action": "",
+   "period": "",
+   "anchor": "",
+   "approval_seen": false,
+   "event_count": 2683
+  },
+  {
+   "id": "O2",
+   "kind": "periodic",
+   "kinds": [
+    "periodic"
+   ],
+   "actors": [
+    "claire"
+   ],
+   "systems": [
+    "phone"
+   ],
+   "occurrences_per_month": 152.6,
+   "minutes_per_task": 4.0,
+   "default_minutes_per_task": 4.0,
+   "hours_per_month": 10.17,
+   "automation_share": 0.8,
+   "hours_saved_per_month": 8.14,
+   "ease": 3,
+   "risk": "low",
+   "risk_reason": "a mistake is easy to spot and undo (a reminder, a report or a new internal record)",
+   "trigger": "schedule",
+   "score": 8.14,
+   "evidence": {
+    "period": "daily",
+    "anchor": "every working day",
+    "hour": 16.05
+   },
+   "examples": [
+    "reminder call (phone)"
+   ],
+   "target_action": "",
+   "period": "daily",
+   "anchor": "every working day",
+   "approval_seen": false,
+   "event_count": 426
+  },
+  {
+   "id": "O3",
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "actors": [
+    "claire"
+   ],
+   "systems": [
+    "email",
+    "crm"
+   ],
+   "occurrences_per_month": 35.1,
+   "minutes_per_task": 5.0,
+   "default_minutes_per_task": 5.0,
+   "hours_per_month": 2.92,
+   "automation_share": 0.8,
+   "hours_saved_per_month": 2.34,
+   "ease": 3,
+   "risk": "low",
+   "risk_reason": "a mistake is easy to spot and undo (a reminder, a report or a new internal record)",
+   "trigger": "email",
+   "score": 2.34,
+   "evidence": {
+    "confidence": 1.0,
+    "lift": 8.7,
+    "median_gap_min": 20.0,
+    "target_action": "create lead"
+   },
+   "examples": [
+    "New quote request: Shower mixer replacement - Mangere Bridge",
+    "create lead (crm)"
+   ],
+   "target_action": "create lead",
+   "period": "",
+   "anchor": "",
+   "approval_seen": false,
+   "event_count": 193
+  },
+  {
+   "id": "O4",
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "actors": [
+    "emma"
+   ],
+   "systems": [
+    "email",
+    "accounts"
+   ],
+   "occurrences_per_month": 27.9,
+   "minutes_per_task": 5.0,
+   "default_minutes_per_task": 5.0,
+   "hours_per_month": 2.33,
+   "automation_share": 0.8,
+   "hours_saved_per_month": 1.86,
+   "ease": 3,
+   "risk": "medium",
+   "risk_reason": "it writes financial records in accounts; a wrong entry costs money",
+   "trigger": "email",
+   "score": 1.86,
+   "evidence": {
+    "confidence": 0.91,
+    "lift": 9.0,
+    "median_gap_min": 20.0,
+    "target_action": "enter supplier bill"
+   },
+   "examples": [
+    "DrainPro invoice [ref] - payment due in [n] days",
+    "enter supplier bill (accounts)"
+   ],
+   "target_action": "enter supplier bill",
+   "period": "",
+   "anchor": "",
+   "approval_seen": false,
+   "event_count": 153
+  },
+  {
+   "id": "O5",
+   "kind": "periodic",
+   "kinds": [
+    "periodic"
+   ],
+   "actors": [
+    "sarah"
+   ],
+   "systems": [
+    "jobs",
+    "spreadsheet",
+    "email"
+   ],
+   "occurrences_per_month": 1.1,
+   "minutes_per_task": 120.0,
+   "default_minutes_per_task": 120.0,
+   "hours_per_month": 2.2,
+   "automation_share": 0.8,
+   "hours_saved_per_month": 1.76,
+   "ease": 3,
+   "risk": "low",
+   "risk_reason": "a mistake is easy to spot and undo (a reminder, a report or a new internal record)",
+   "trigger": "schedule",
+   "score": 1.76,
+   "evidence": {
+    "period": "monthly",
+    "anchor": "on the first working day of each month",
+    "hour": 9.0
+   },
+   "examples": [
+    "Monthly KPI report",
+    "export job report (jobs)",
+    "update kpi spreadsheet (spreadsheet)",
+    "Monthly KPI report - [date]"
+   ],
+   "target_action": "",
+   "period": "monthly",
+   "anchor": "on the first working day of each month",
+   "approval_seen": false,
+   "event_count": 12
+  },
+  {
+   "id": "O6",
+   "kind": "periodic",
+   "kinds": [
+    "periodic"
+   ],
+   "actors": [
+    "james"
+   ],
+   "systems": [
+    "email",
+    "payroll"
+   ],
+   "occurrences_per_month": 23.3,
+   "minutes_per_task": 4.0,
+   "default_minutes_per_task": 4.0,
+   "hours_per_month": 1.55,
+   "automation_share": 0.8,
+   "hours_saved_per_month": 1.24,
+   "ease": 3,
+   "risk": "low",
+   "risk_reason": "a mistake is easy to spot and undo (a reminder, a report or a new internal record)",
+   "trigger": "schedule",
+   "score": 1.24,
+   "evidence": {
+    "period": "weekly",
+    "anchor": "every Friday",
+    "hour": 13.541666666666668
+   },
+   "examples": [
+    "check timesheet status (payroll)",
+    "Timesheet reminder - week ending [date]",
+    "Please submit your timesheet for [date] [date]"
+   ],
+   "target_action": "",
+   "period": "weekly",
+   "anchor": "every Friday",
+   "approval_seen": false,
+   "event_count": 65
+  },
+  {
+   "id": "O7",
+   "kind": "handoff",
+   "kinds": [
+    "handoff"
+   ],
+   "actors": [
+    "james",
+    "sarah",
+    "tom",
+    "jack"
+   ],
+   "systems": [
+    "email",
+    "accounts"
+   ],
+   "occurrences_per_month": 12.2,
+   "minutes_per_task": 12.0,
+   "default_minutes_per_task": 12.0,
+   "hours_per_month": 2.44,
+   "automation_share": 0.6,
+   "hours_saved_per_month": 1.46,
+   "ease": 1,
+   "risk": "high",
+   "risk_reason": "it commits money: a person approves each one today and must keep approving",
+   "trigger": "email",
+   "score": 0.88,
+   "evidence": {
+    "ref_type": "PO",
+    "first_step": "email",
+    "approval": true,
+    "steps_per_chain": 4.0,
+    "common_route": [
+     "email",
+     "accounts:create purchase order"
+    ],
+    "route": [
+     {
+      "step": "email",
+      "people": [
+       "tom",
+       "jack",
+       "lucy"
+      ],
+      "count": 8,
+      "example": "PO request [ref]: toilet suite"
+     },
+     {
+      "step": "email",
+      "people": [
+       "james"
+      ],
+      "count": 1,
+      "example": "PO request [ref]: toilet suite - approval needed ([amount])"
+     },
+     {
+      "step": "email",
+      "people": [
+       "sarah"
+      ],
+      "count": 1,
+      "example": "PO request [ref]: toilet suite - approved"
+     },
+     {
+      "step": "accounts:create purchase order",
+      "people": [
+       "james"
+      ],
+      "count": 1,
+      "example": "create purchase order: toilet suite"
+     }
+    ]
+   },
+   "examples": [
+    "tom: PO request [ref]: heat pump water heater",
+    "james: PO request [ref]: heat pump water heater - approval needed ([amount])",
+    "sarah: PO request [ref]: heat pump water heater - approved",
+    "james: create purchase order: heat pump water heater"
+   ],
+   "target_action": "",
+   "period": "",
+   "anchor": "",
+   "approval_seen": true,
+   "event_count": 135
+  },
+  {
+   "id": "O8",
+   "kind": "copy",
+   "kinds": [
+    "copy",
+    "near_duplicate"
+   ],
+   "actors": [
+    "claire"
+   ],
+   "systems": [
+    "helpdesk",
+    "jobs"
+   ],
+   "occurrences_per_month": 11.8,
+   "minutes_per_task": 5.0,
+   "default_minutes_per_task": 5.0,
+   "hours_per_month": 0.98,
+   "automation_share": 0.8,
+   "hours_saved_per_month": 0.78,
+   "ease": 3,
+   "risk": "medium",
+   "risk_reason": "it changes jobs records that customers rely on",
+   "trigger": "ticket",
+   "score": 0.78,
+   "evidence": {
+    "variants": 6,
+    "confidence": 1.0,
+    "lift": 17.9,
+    "median_gap_min": 23.5,
+    "target_action": "reschedule booking"
+   },
+   "examples": [
+    "Move my plumbing appointment",
+    "reschedule booking (jobs)"
+   ],
+   "target_action": "reschedule booking",
+   "period": "",
+   "anchor": "",
+   "approval_seen": false,
+   "event_count": 66
+  },
+  {
+   "id": "O9",
+   "kind": "near_duplicate",
+   "kinds": [
+    "near_duplicate"
+   ],
+   "actors": [
+    "claire"
+   ],
+   "systems": [
+    "email"
+   ],
+   "occurrences_per_month": 3.6,
+   "minutes_per_task": 6.0,
+   "default_minutes_per_task": 6.0,
+   "hours_per_month": 0.36,
+   "automation_share": 0.6,
+   "hours_saved_per_month": 0.22,
+   "ease": 2,
+   "risk": "low",
+   "risk_reason": "a mistake is easy to spot and undo (a reminder, a report or a new internal record)",
+   "trigger": "email",
+   "score": 0.18,
+   "evidence": {
+    "variants": 1
+   },
+   "examples": [
+    "Availability next week"
+   ],
+   "target_action": "",
+   "period": "",
+   "anchor": "",
+   "approval_seen": false,
+   "event_count": 10
+  },
+  {
+   "id": "O10",
+   "kind": "near_duplicate",
+   "kinds": [
+    "near_duplicate"
+   ],
+   "actors": [
+    "claire"
+   ],
+   "systems": [
+    "email"
+   ],
+   "occurrences_per_month": 2.1,
+   "minutes_per_task": 6.0,
+   "default_minutes_per_task": 6.0,
+   "hours_per_month": 0.21,
+   "automation_share": 0.6,
+   "hours_saved_per_month": 0.13,
+   "ease": 2,
+   "risk": "low",
+   "risk_reason": "a mistake is easy to spot and undo (a reminder, a report or a new internal record)",
+   "trigger": "email",
+   "score": 0.1,
+   "evidence": {
+    "variants": 1
+   },
+   "examples": [
+    "Thanks for the quick visit"
+   ],
+   "target_action": "",
+   "period": "",
+   "anchor": "",
+   "approval_seen": false,
+   "event_count": 6
+  }
+ ],
+ "proposals": [
+  {
+   "opportunity": "O1",
+   "title": "Automated Invoice Generation on Job Completion",
+   "today": "First one of 8 people (Ben, Ryan and others) does 'complete job in jobs'; then Emma does 'create invoice in accounts'. This happens about 292 times a month.",
+   "trigger_type": "app_event",
+   "trigger": "A field worker marks a job as complete in the jobs system.",
+   "steps": [
+    "Detect when a job status changes to complete in the jobs system.",
+    "Extract job details, customer information, and line items from the completed job.",
+    "Draft a new invoice in the accounts system using the extracted details.",
+    "Send the drafted invoice to Emma for review and approval."
+   ],
+   "ai_help": [
+    "Extracts job details and line items to automatically draft the correct invoice in the accounts system."
+   ],
+   "human_approval": [
+    "Emma must review and approve the draft invoice in the accounts system before it is sent to the customer."
+   ],
+   "needs_approval": true,
+   "risk": "medium",
+   "risk_reason": "Incorrect invoice amounts or details could lead to billing errors and customer dissatisfaction.",
+   "systems": [
+    "jobs",
+    "accounts"
+   ],
+   "hours_saved_per_month": 17.49,
+   "source": "model",
+   "notes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ]
+  },
+  {
+   "opportunity": "O2",
+   "title": "Daily Customer Reminder Calls",
+   "today": "Claire does the same routine every working day around 16:00: \u201creminder call (phone)\u201d. That is about 153 tasks a month.",
+   "trigger_type": "schedule",
+   "trigger": "Triggers every working day at 16:00 to prepare daily reminder calls.",
+   "steps": [
+    "Generate the list of customers who need a reminder call for the next working day",
+    "Draft a friendly reminder script for each customer",
+    "Queue the call list and notes for review"
+   ],
+   "ai_help": [
+    "Summarize customer booking details and draft personalized reminder notes."
+   ],
+   "human_approval": [
+    "Claire reviews the call list and approved reminder notes before dialing."
+   ],
+   "needs_approval": true,
+   "risk": "low",
+   "risk_reason": "Mistakes only result in an incorrect reminder call time, which can be quickly corrected over the phone.",
+   "systems": [
+    "phone"
+   ],
+   "hours_saved_per_month": 8.14,
+   "source": "model",
+   "notes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ]
+  },
+  {
+   "opportunity": "O3",
+   "title": "Automate CRM Lead Creation from Quote Request Emails",
+   "today": "Claire receives an email like \u201cNew quote request: Shower mixer replacement - Mangere Bridge\u201d and then types it into crm (create lead) by hand, about 35 times a month.",
+   "trigger_type": "email",
+   "trigger": "A new quote request email is received from a potential customer.",
+   "steps": [
+    "Receive the incoming quote request email.",
+    "Extract the customer details, job description, and location using AI.",
+    "Check if a lead already exists in the CRM system.",
+    "Create a new lead in the CRM with the extracted information."
+   ],
+   "ai_help": [
+    "Extracts relevant customer and job details from the email text to format them correctly for the CRM."
+   ],
+   "human_approval": [],
+   "needs_approval": false,
+   "risk": "low",
+   "risk_reason": "If the automation makes a mistake, an incorrect lead is created in the CRM which can be easily edited or deleted by Claire.",
+   "systems": [
+    "email",
+    "crm"
+   ],
+   "hours_saved_per_month": 2.34,
+   "source": "model",
+   "notes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ]
+  },
+  {
+   "opportunity": "O4",
+   "title": "Automate Supplier Bill Entry from Invoices",
+   "today": "Emma receives an email like \u201cDrainPro invoice [ref] - payment due in [n] days\u201d and then types it into accounts (enter supplier bill) by hand, about 28 times a month.",
+   "trigger_type": "email",
+   "trigger": "An email is received with a subject line indicating a new supplier invoice and payment due date.",
+   "steps": [
+    "Receive the supplier invoice email from DrainPro.",
+    "Extract the invoice reference number, amount, and payment due date.",
+    "Draft a new supplier bill in the accounts system with the extracted details.",
+    "Flag the draft bill for human review before final entry."
+   ],
+   "ai_help": [
+    "Extracting the reference number, due date, and amount from the incoming invoice email."
+   ],
+   "human_approval": [
+    "Emma reviews and approves the draft supplier bill in the accounts system before it is saved."
+   ],
+   "needs_approval": true,
+   "risk": "medium",
+   "risk_reason": "Incorrect bill details entered into accounts could lead to overpayment or accounting errors.",
+   "systems": [
+    "email",
+    "accounts"
+   ],
+   "hours_saved_per_month": 1.86,
+   "source": "model",
+   "notes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ]
+  },
+  {
+   "opportunity": "O5",
+   "title": "Monthly KPI Report Automation",
+   "today": "Sarah does the same routine on the first working day of each month around 09:00: \u201cMonthly KPI report\u201d, \u201cexport job report (jobs)\u201d, \u201cupdate kpi spreadsheet (spreadsheet)\u201d. That is once a month.",
+   "trigger_type": "schedule",
+   "trigger": "Triggered on the first working day of each month at 09:00.",
+   "steps": [
+    "Export the latest job report from the jobs system",
+    "Calculate the key performance indicators from the exported data",
+    "Update the monthly KPI spreadsheet with the new figures",
+    "Send the final KPI report via email to management"
+   ],
+   "ai_help": [
+    "AI calculates key metrics and summarizes the job report data before updating the spreadsheet."
+   ],
+   "human_approval": [
+    "Review and approve the updated KPI spreadsheet and email before it is sent to management."
+   ],
+   "needs_approval": true,
+   "risk": "low",
+   "risk_reason": "Mistakes in internal KPI reporting are easily corrected and do not directly impact customers or finances.",
+   "systems": [
+    "jobs",
+    "spreadsheet",
+    "email"
+   ],
+   "hours_saved_per_month": 1.76,
+   "source": "model",
+   "notes": [
+    "ai_help given as text, read as a list",
+    "human_approval given as text, read as a list"
+   ]
+  },
+  {
+   "opportunity": "O6",
+   "title": "Run James's weekly routine automatically",
+   "today": "James does the same routine every Friday around 13:30: \u201ccheck timesheet status (payroll)\u201d, \u201cTimesheet reminder - week ending [date]\u201d, \u201cPlease submit your timesheet for [date] [date]\u201d. That is about 23 tasks a month.",
+   "trigger_type": "schedule",
+   "trigger": "A schedule: every Friday at 13:30",
+   "steps": [
+    "Start every Friday at 13:30",
+    "Collect what the routine needs from email, payroll",
+    "Do the repeated part automatically: \u201ccheck timesheet status (payroll)\u201d; \u201cTimesheet reminder - week ending [date]\u201d; \u201cPlease submit your timesheet for [date] [date]\u201d",
+    "Send James a short summary of what was done and anything that needs a person"
+   ],
+   "ai_help": [
+    "Write the message or report text from the collected data"
+   ],
+   "human_approval": [],
+   "needs_approval": false,
+   "risk": "low",
+   "risk_reason": "a mistake is easy to spot and undo (a reminder, a report or a new internal record)",
+   "systems": [
+    "email",
+    "payroll"
+   ],
+   "hours_saved_per_month": 1.24,
+   "source": "rules",
+   "notes": []
+  },
+  {
+   "opportunity": "O7",
+   "title": "Route each PO request through approval and into accounts automatically",
+   "today": "First one of 8 people (Tom, Jack and others) emails \u201cPO request [ref]: toilet suite\u201d; then James emails \u201cPO request [ref]: toilet suite - approval needed ([amount])\u201d; then Sarah emails \u201cPO request [ref]: toilet suite - approved\u201d; then James does 'create purchase order in accounts'. This happens about 12 times a month.",
+   "trigger_type": "email",
+   "trigger": "A request email arrives (the first step today)",
+   "steps": [
+    "Capture the item and its reference number",
+    "Check the details are complete (reference, amounts, customer) and fill in what is missing",
+    "Send the approver a message with Approve / Decline, then wait for the answer",
+    "Create the record in accounts automatically (today James does 'create purchase order in accounts' by hand)",
+    "Tell the person who started it what happened"
+   ],
+   "ai_help": [
+    "Pre-fill the details from the message or job notes",
+    "Flag anything that breaks the usual pattern"
+   ],
+   "human_approval": [
+    "The approver still decides Approve or Decline, as today; nothing is ordered without it"
+   ],
+   "needs_approval": true,
+   "risk": "high",
+   "risk_reason": "it commits money: a person approves each one today and must keep approving",
+   "systems": [
+    "email",
+    "accounts"
+   ],
+   "hours_saved_per_month": 1.46,
+   "source": "rules",
+   "notes": []
+  },
+  {
+   "opportunity": "O8",
+   "title": "Create the jobs record from each ticket automatically",
+   "today": "Claire receives a helpdesk ticket like \u201cMove my plumbing appointment\u201d and then types it into jobs (reschedule booking) by hand, about 12 times a month.",
+   "trigger_type": "ticket",
+   "trigger": "A new helpdesk ticket like \u201cMove my plumbing appointment\u201d is created",
+   "steps": [
+    "Pick out only the tickets that match this pattern (sender and subject)",
+    "Extract the details Claire currently re-types for 'reschedule booking'",
+    "Show Claire the drafted record to approve (one click) before it is saved",
+    "Create the 'reschedule booking' record in jobs through its API",
+    "Link the new record back to the original ticket and log it"
+   ],
+   "ai_help": [
+    "Read the ticket and extract the fields, with a confidence score",
+    "Send anything unclear or unusual to a person instead of guessing"
+   ],
+   "human_approval": [
+    "Claire approves each item before anything is saved or sent"
+   ],
+   "needs_approval": true,
+   "risk": "medium",
+   "risk_reason": "it changes jobs records that customers rely on",
+   "systems": [
+    "helpdesk",
+    "jobs"
+   ],
+   "hours_saved_per_month": 0.78,
+   "source": "rules",
+   "notes": []
+  },
+  {
+   "opportunity": "O9",
+   "title": "Recognise these requests and draft the response",
+   "today": "Claire answers the same kind of request again and again, such as \u201cAvailability next week\u201d: about 4 a month, worded differently each time.",
+   "trigger_type": "email",
+   "trigger": "A new email like \u201cAvailability next week\u201d arrives",
+   "steps": [
+    "Recognise the request, however it is worded",
+    "Look up the related booking or record",
+    "Draft the reply and the change for a person to approve",
+    "Apply the change and send the reply once approved"
+   ],
+   "ai_help": [
+    "Classify requests that are worded differently",
+    "Draft the reply in the business's tone"
+   ],
+   "human_approval": [
+    "Claire approves each item before anything is saved or sent"
+   ],
+   "needs_approval": true,
+   "risk": "low",
+   "risk_reason": "a mistake is easy to spot and undo (a reminder, a report or a new internal record)",
+   "systems": [
+    "email"
+   ],
+   "hours_saved_per_month": 0.22,
+   "source": "rules",
+   "notes": []
+  },
+  {
+   "opportunity": "O10",
+   "title": "Recognise these requests and draft the response",
+   "today": "Claire answers the same kind of request again and again, such as \u201cThanks for the quick visit\u201d: about 2 a month, worded differently each time.",
+   "trigger_type": "email",
+   "trigger": "A new email like \u201cThanks for the quick visit\u201d arrives",
+   "steps": [
+    "Recognise the request, however it is worded",
+    "Look up the related booking or record",
+    "Draft the reply and the change for a person to approve",
+    "Apply the change and send the reply once approved"
+   ],
+   "ai_help": [
+    "Classify requests that are worded differently",
+    "Draft the reply in the business's tone"
+   ],
+   "human_approval": [
+    "Claire approves each item before anything is saved or sent"
+   ],
+   "needs_approval": true,
+   "risk": "low",
+   "risk_reason": "a mistake is easy to spot and undo (a reminder, a report or a new internal record)",
+   "systems": [
+    "email"
+   ],
+   "hours_saved_per_month": 0.13,
+   "source": "rules",
+   "notes": []
+  }
+ ],
+ "workflow_problems": {
+  "O1": [],
+  "O2": [],
+  "O3": [],
+  "O4": [],
+  "O5": []
+ }
+}

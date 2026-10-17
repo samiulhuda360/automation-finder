@@ -1,0 +1,23 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "answer": {
+  "title": "Daily Appointment Reminder Calls",
+  "trigger_type": "schedule",
+  "trigger": "Triggers every working day at 15:00 to prepare afternoon reminder calls.",
+  "steps": [
+   "Fetch today's upcoming appointments from the jobs system.",
+   "Generate a polite reminder script for each client.",
+   "Queue the automated reminder calls or prepare the call list on the phone.",
+   "Log the call status in the system after completion."
+  ],
+  "ai_help": "Drafting the friendly reminder message or generating the call script.",
+  "human_approval": "",
+  "needs_approval": false,
+  "risk": "low",
+  "risk_reason": "Making a mistake simply results in an incorrect or missed reminder call to a client.",
+  "systems": [
+   "phone",
+   "jobs system"
+  ]
+ }
+}
