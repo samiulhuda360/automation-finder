@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>automation-finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #17302d; --muted: #5b6d6a; --line: #d9e2df; --paper: #f6f5f0; --card: #ffffff;
+    --teal: #1f6f66; --teal-dark: #155149; --teal-soft: #e3f1ee; --copper: #b4632f; --copper-soft: #f6e9df;
+    --low: #2f7d4f; --low-soft: #e4f2e9; --medium: #a8661c; --medium-soft: #f7ecd9; --high: #a83a2c; --high-soft: #f6e1dd;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink);
+         font: 15px/1.5 "IBM Plex Sans", "Segoe UI", Arial, sans-serif; }
+  header.top { background: var(--teal-dark); color: #fff; }
+  header.top .wrap { display: flex; align-items: baseline; gap: 16px; padding: 18px 20px; }
+  header.top h1 { margin: 0; font-size: 20px; letter-spacing: .01em; }
+  header.top p { margin: 0; opacity: .85; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  h2 { font-size: 18px; margin: 28px 0 10px; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+  .drop { border: 2px dashed #a9c4be; border-radius: 10px; padding: 26px; text-align: center; color: var(--muted);
+          background: #fbfcfb; cursor: pointer; }
+  .drop.over { background: var(--teal-soft); border-color: var(--teal); }
+  .drop b { color: var(--ink); }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; }
+  button, .btn { font: inherit; border: 0; border-radius: 8px; padding: 9px 16px; cursor: pointer; text-decoration: none;
+                 display: inline-block; }
+  .primary { background: var(--teal); color: #fff; } .primary:hover { background: var(--teal-dark); }
+  .secondary { background: var(--teal-soft); color: var(--teal-dark); } .secondary:hover { background: #d3e8e3; }
+  .ghost { background: transparent; color: var(--teal-dark); border: 1px solid #b8d2cc; }
+  button:disabled { opacity: .55; cursor: wait; }
+  input[type=text] { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; min-width: 220px; }
+  .files { margin-top: 14px; display: grid; gap: 10px; }
+  .file { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .file .name { font-weight: 600; } .file .meta { color: var(--muted); font-size: 13px; }
+  .file select { font: inherit; padding: 4px 6px; border-radius: 6px; border: 1px solid var(--line); }
+  .mapping { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; margin-top: 8px; font-size: 13px; }
+  .mapping label { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+  .missing { color: var(--high); font-size: 13px; }
+  .status { color: var(--muted); font-size: 14px; }
+  .error { color: var(--high); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .stat b { display: block; font-size: 24px; color: var(--teal); }
+  .stat span { color: var(--muted); font-size: 13px; }
+  .note { background: var(--copper-soft); border-left: 4px solid var(--copper); padding: 9px 12px; border-radius: 6px;
+          font-size: 14px; margin: 14px 0; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+          overflow: hidden; }
+  th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: #fafbf9; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  tr.opp { cursor: pointer; } tr.opp:hover td { background: #fbfdfc; }
+  tr.top5 td:first-child { border-left: 4px solid var(--teal); }
+  .rankno { font-weight: 700; color: var(--teal); }
+  .title { font-weight: 600; } .today { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 99px; background: var(--teal-soft);
+           color: var(--teal-dark); white-space: nowrap; }
+  .badge.low { background: var(--low-soft); color: var(--low); } .badge.medium { background: var(--medium-soft); color: var(--medium); }
+  .badge.high { background: var(--high-soft); color: var(--high); }
+  input.mins { width: 64px; font: inherit; padding: 4px 6px; border: 1px solid #b8d2cc; border-radius: 6px; text-align: right; }
+  tr.detail td { background: #fbfcfb; }
+  .detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px 28px; }
+  .detail-grid h4 { margin: 8px 0 2px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .detail-grid ul { margin: 0; padding-left: 18px; } .detail-grid p { margin: 0; }
+  .mono { font-family: "IBM Plex Mono", Consolas, monospace; font-size: 12.5px; }
+  .hidden { display: none; }
+  a { color: var(--teal-dark); }
+  footer { color: var(--muted); font-size: 13px; padding: 30px 0 40px; }
+  @media (max-width: 720px) {
+    .stats { grid-template-columns: repeat(2, 1fr); } .detail-grid { grid-template-columns: 1fr; }
+    header.top .wrap { flex-direction: column; gap: 2px; }
+    .hide-sm { display: none; }
+  }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>automation-finder</h1>
+  <p>Find the hours your team spends on repeat work, and what to automate first.</p>
+</div></header>
+
+<main class="wrap">
+  <h2>1. Add your exports</h2>
+  <div class="panel">
+    <div class="drop" id="drop">
+      <b>Drop files here</b> or click to choose them<br>
+      Email lists (sender, subject, time), helpdesk tickets (CSV), calendars (.ics) and activity logs (CSV: who, what, when, system)
+      <input type="file" id="picker" multiple accept=".csv,.ics,text/csv,text/calendar" class="hidden">
+    </div>
+    <div class="files" id="files"></div>
+    <div class="row">
+      <input type="text" id="business" placeholder="Business name (for the report)">
+      <button class="primary" id="go" disabled>Find repeated work</button>
+      <span class="status">or</span>
+      <button class="secondary" id="sample">Use the Acme Plumbing sample</button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+
+  <section id="results" class="hidden">
+    <h2>2. What we found</h2>
+    <div class="stats" id="stats"></div>
+    <p class="note"><b>Hours are estimates:</b> times a month (counted from the records) &times; minutes per task
+      (an assumption). Change the minutes in the table and everything is recalculated.</p>
+    <table>
+      <thead><tr>
+        <th>#</th><th>Repeated work</th><th class="hide-sm">Type</th><th class="num">Times / month</th>
+        <th class="num">Minutes each</th><th class="num">Hours / month</th><th class="num">Could save</th><th>Risk</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+
+    <h2>3. Take it away</h2>
+    <div class="panel row" style="margin-top:0">
+      <a class="btn primary" id="dl-html">Download the report (HTML, prints to PDF)</a>
+      <a class="btn secondary" id="dl-md">Report as Markdown</a>
+      <a class="btn ghost" id="dl-zip">n8n workflows for the top 5 (.zip)</a>
+    </div>
+  </section>
+  <footer>Nothing is stored after you close the page. Message bodies are not needed; subjects, times and names are enough.</footer>
+</main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+let picked = [];      // File objects
+let inspected = [];   // server's guess per file
+let fieldSpec = {};
+let current = null;   // last analysis payload
+const KINDS = { email: 'Email list', ticket: 'Helpdesk tickets', activity: 'Activity log', calendar: 'Calendar (.ics)' };
+
+fetch('/api/fields').then(r => r.json()).then(f => { fieldSpec = f; });
+
+const drop = $('#drop');
+drop.addEventListener('click', () => $('#picker').click());
+drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('over'); });
+drop.addEventListener('dragleave', () => drop.classList.remove('over'));
+drop.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('over'); addFiles(e.dataTransfer.files); });
+$('#picker').addEventListener('change', (e) => addFiles(e.target.files));
+
+function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+async function addFiles(list) {
+  picked = picked.concat([...list]);
+  const fd = new FormData();
+  picked.forEach(f => fd.append('files', f));
+  setStatus('Reading the column names…');
+  const r = await fetch('/api/inspect', { method: 'POST', body: fd });
+  if (!r.ok) return setStatus((await r.json()).detail, true);
+  inspected = await r.json();
+  setStatus('');
+  renderFiles();
+}
+
+function renderFiles() {
+  $('#files').innerHTML = inspected.map((f, i) => {
+    const kinds = Object.entries(KINDS).map(([k, v]) => `<option value="${k}" ${k === f.kind ? 'selected' : ''}>${v}</option>`).join('');
+    let mapping = '';
+    if (f.kind !== 'calendar' && fieldSpec[f.kind]) {
+      mapping = '<div class="mapping">' + Object.entries(fieldSpec[f.kind]).map(([field, spec]) => {
+        const opts = ['<option value="">(none)</option>'].concat(f.headers.map(h =>
+          `<option ${f.mapping[field] === h ? 'selected' : ''}>${esc(h)}</option>`)).join('');
+        return `<label>${field}${spec.required ? ' *' : ''}<select data-i="${i}" data-field="${field}">${opts}</select></label>`;
+      }).join('') + '</div>';
+    }
+    const missing = (f.missing || []).length ? `<div class="missing">Choose a column for: ${f.missing.join(', ')}</div>` : '';
+    return `<div class="file"><span class="name">${esc(f.name)}</span>
+      <span class="meta"> &middot; ${f.rows} records &middot; </span>
+      <select data-kind="${i}">${kinds}</select>${mapping}${missing}</div>`;
+  }).join('');
+  document.querySelectorAll('select[data-field]').forEach(s => s.addEventListener('change', (e) => {
+    const f = inspected[+e.target.dataset.i];
+    f.mapping[e.target.dataset.field] = e.target.value;
+    f.missing = Object.entries(fieldSpec[f.kind]).filter(([k, v]) => v.required && !f.mapping[k]).map(([k]) => k);
+    renderFiles();
+  }));
+  document.querySelectorAll('select[data-kind]').forEach(s => s.addEventListener('change', (e) => {
+    inspected[+e.target.dataset.kind].kind = e.target.value;
+    inspected[+e.target.dataset.kind].mapping = {};
+    addFiles([]);
+  }));
+  $('#go').disabled = !inspected.length || inspected.some(f => (f.missing || []).length);
+}
+
+function setStatus(text, isError) { $('#status').textContent = text; $('#status').className = 'status' + (isError ? ' error' : ''); }
+
+async function analyse(sample) {
+  $('#go').disabled = true; $('#sample').disabled = true;
+  setStatus('Looking for repeated work…');
+  let r;
+  if (sample) {
+    r = await fetch('/api/sample', { method: 'POST' });
+  } else {
+    const fd = new FormData();
+    picked.forEach(f => fd.append('files', f));
+    const config = {};
+    inspected.forEach(f => { config[f.name] = { kind: f.kind, mapping: f.kind === 'calendar' ? null : f.mapping }; });
+    fd.append('config', JSON.stringify(config));
+    fd.append('business', $('#business').value);
+    r = await fetch('/api/analyse', { method: 'POST', body: fd });
+  }
+  $('#sample').disabled = false; $('#go').disabled = !inspected.length;
+  if (!r.ok) return setStatus((await r.json()).detail, true);
+  setStatus('');
+  show(await r.json());
+}
+$('#go').addEventListener('click', () => analyse(false));
+$('#sample').addEventListener('click', () => analyse(true));
+
+function fmt(x, d = 1) { return Number(x).toFixed(d); }
+
+function show(data) {
+  current = data;
+  const s = data.summary, opps = data.opportunities, top = opps.slice(0, 5);
+  const hours = top.reduce((a, o) => a + o.hours_per_month, 0), saved = top.reduce((a, o) => a + o.hours_saved_per_month, 0);
+  $('#stats').innerHTML = `
+    <div class="stat"><b>${s.events.toLocaleString()}</b><span>records read, ${s.first} to ${s.last}</span></div>
+    <div class="stat"><b>${opps.length}</b><span>repeated tasks found</span></div>
+    <div class="stat"><b>${fmt(hours, 0)} h</b><span>a month on the top 5</span></div>
+    <div class="stat"><b>${fmt(saved, 0)} h</b><span>a month automation could give back</span></div>`;
+  $('#rows').innerHTML = opps.map((o, i) => {
+    const p = o.proposal;
+    return `<tr class="opp ${i < 5 ? 'top5' : ''}" data-id="${o.id}">
+      <td class="rankno">${i + 1}</td>
+      <td><div class="title">${esc(p.title)}</div><div class="today">${esc(p.today)}</div></td>
+      <td class="hide-sm"><span class="badge">${esc(o.kind_name)}</span></td>
+      <td class="num">${fmt(o.occurrences_per_month, 0)}</td>
+      <td class="num"><input class="mins" type="number" min="0.5" max="600" step="0.5" value="${o.minutes_per_task}" data-id="${o.id}" title="Minutes one occurrence takes"></td>
+      <td class="num">${fmt(o.hours_per_month)}</td>
+      <td class="num"><b>${fmt(o.hours_saved_per_month)} h</b></td>
+      <td><span class="badge ${p.risk}">${p.risk}</span></td>
+    </tr>
+    <tr class="detail hidden" id="d-${o.id}"><td></td><td colspan="7">${detail(o)}</td></tr>`;
+  }).join('');
+  document.querySelectorAll('tr.opp').forEach(tr => tr.addEventListener('click', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'A') return;
+    $('#d-' + tr.dataset.id).classList.toggle('hidden');
+  }));
+  document.querySelectorAll('input.mins').forEach(inp => inp.addEventListener('change', updateMinutes));
+  const base = `/api/session/${data.session}`;
+  $('#dl-html').href = base + '/report.html'; $('#dl-md').href = base + '/report.md'; $('#dl-zip').href = base + '/workflows.zip';
+  $('#results').classList.remove('hidden');
+}
+
+function list(items, empty) { return items.length ? '<ul>' + items.map(x => `<li>${esc(x)}</li>`).join('') + '</ul>' : `<p>${empty}</p>`; }
+
+function detail(o) {
+  const p = o.proposal, ev = o.evidence || {};
+  const facts = [];
+  if (ev.confidence !== undefined) facts.push(`${Math.round(ev.confidence * 100)}% of the time the second step follows within ${ev.median_gap_min} working minutes (median)`);
+  if (ev.lift !== undefined) facts.push(`${ev.lift}&times; more often than chance`);
+  if (ev.period) facts.push(`${ev.period}, ${ev.anchor}`);
+  if (ev.steps_per_chain) facts.push(`${ev.steps_per_chain} people-steps per item`);
+  facts.push(`${o.event_count} records involved`);
+  return `<div class="detail-grid">
+    <div><h4>What starts it</h4><p>${esc(p.trigger)}</p></div>
+    <div><h4>Steps</h4>${list(p.steps, '')}</div>
+    <div><h4>Where AI helps</h4>${list(p.ai_help, 'Not needed: simple rules are enough.')}</div>
+    <div><h4>Where a person decides</h4>${list(p.human_approval, 'Nothing to approve; a summary is sent.')}</div>
+    <div><h4>Risk</h4><p>${esc(p.risk_reason)}</p></div>
+    <div><h4>Evidence</h4><p>${facts.join(' &middot; ')}</p><p class="mono">${o.examples.map(esc).join('<br>')}</p></div>
+    <div><h4>n8n workflow</h4><p>${o.workflow_ok ? 'Checked against the n8n workflow format.' : 'Problems: ' + esc(o.workflow_problems.join('; '))}
+      <a href="/api/session/${current.session}/workflow/${o.id}.json">Download ${o.id}.json</a></p>
+      <p class="status">Written by: ${p.source === 'model' ? 'the AI model, checked by the safety rules' : 'the rule-based writer'}</p></div>
+  </div>`;
+}
+
+async function updateMinutes() {
+  const minutes = {};
+  document.querySelectorAll('input.mins').forEach(i => { minutes[i.dataset.id] = parseFloat(i.value); });
+  const r = await fetch(`/api/session/${current.session}/minutes`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ minutes }) });
+  if (!r.ok) return setStatus((await r.json()).detail, true);
+  show(await r.json());
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+.venv/
+venv/
+.env
+node_modules/
+# Generated per run; the sample report and workflows under results/acme-plumbing are kept as examples.
+results/analysis/

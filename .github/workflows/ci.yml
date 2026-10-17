@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    name: Lint, types, tests and the stored evaluation (replayed, no key)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e ".[dev]"
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: mypy automation_finder
+      - run: python -m pytest -q
+      - name: Replay the full evaluation from the committed caches and check RESULTS.md is unchanged
+        run: |
+          python -m automation_finder eval --seeds 1-5 --out results
+          python -m automation_finder eval --seeds 1-5 --hard --out results
+          python -m automation_finder eval-proposals --seeds 1-5 --out results
+          git diff --exit-code results/RESULTS.md
+
+  n8n-import:
+    name: Import the generated workflows into a real n8n
+    runs-on: ubuntu-latest
+    needs: checks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: python -m pip install -e ".[dev]"
+      - run: npm install -g n8n@2.8.4
+      - name: Check node versions against the installed n8n
+        run: |
+          export N8N_NODES_DIR="$(npm root -g)/n8n/node_modules/n8n-nodes-base/dist/nodes"
+          python -m pytest -q tests/test_propose_n8n.py -k versions
+      - run: python -m automation_finder analyse data/acme-plumbing --out results/acme-plumbing --business "Acme Plumbing"
+      - run: python -m automation_finder n8n-check results/acme-plumbing/workflows --import-test --out /tmp/n8n
